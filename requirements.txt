@@ -1,0 +1,7 @@
+requests
+bs4
+scrape-search-engine
+colorama
+treelib
+holehe
+leakcheck
