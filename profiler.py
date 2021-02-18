@@ -161,6 +161,14 @@ if copainsdavant_results is not None:
     tree.create_node('Born Date    : {}'.format(copainsdavant_results['born']),88,parent=3)
     tree.create_node('Localisation : {}'.format(copainsdavant_results['localisation']),99,parent=3)
     tree.create_node('Url          : {}'.format(copainsdavant_results['url_full']),111,parent=3)
+    if copainsdavant_results['pdp'] is not None:
+        tree.create_node('Photo de profil : {}'.format(copainsdavant_results['pdp']),151515454545,parent=3)
+    if copainsdavant_results['Job'] is not None:
+        tree.create_node('Travail : {}'.format(copainsdavant_results['Job']),154156132489411,parent=3)
+    if copainsdavant_results['familial_situation'] is not None:
+        tree.create_node('Situation Familiale : {}'.format(copainsdavant_results['familial_situation'].strip()),44984154114515,parent=3)
+    if copainsdavant_results['nb_enfants'] is not None:
+        tree.create_node('Nombre enfants : {}'.format(copainsdavant_results['nb_enfants']),1654518948741,parent=3)
 if bfmtv_results is not None:
     tree.create_node(Fore.BLUE+"Work - Job"+Fore.RESET,4,parent=1)
     tree.create_node('Adress    : {}'.format(bfmtv_results['addr']),888,parent=4)
@@ -181,7 +189,6 @@ if skype_results is not None:
         chars = "abcdefghijklmnopqrstuvwxyz1234567890"
         number_sk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
         tree.create_node(i,number_sk,parent=12)
-        
 if instagram_results is not None:
     if len(instagram_results) ==  0:
         pass
@@ -246,4 +253,4 @@ if facebook_results is not None:
         tree.create_node(i,parent=10)
 tree.show()
 
-# By Lui#6166 from Prism Intelligence Group
+# By Dalunacrobate#6166 from Prism Intelligence Group
