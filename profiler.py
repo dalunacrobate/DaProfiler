@@ -163,22 +163,22 @@ if copainsdavant_results is not None:
     tree.create_node('Url          : {}'.format(copainsdavant_results['url_full']),111,parent=3)
     if copainsdavant_results['pdp'] != "None":
         try:
-            tree.create_node('Photo de profil : {}'.format(copainsdavant_results['pdp']),151515454545,parent=3)
+            tree.create_node('Profile Picture : {}'.format(copainsdavant_results['pdp']),151515454545,parent=3)
         except:
             pass
     if copainsdavant_results['Job'] != "None":
         try:
-            tree.create_node('Travail : {}'.format(copainsdavant_results['Job']),154156132489411,parent=3)
+            tree.create_node('Job : {}'.format(copainsdavant_results['Job']),154156132489411,parent=3)
         except:
             pass
     if copainsdavant_results['familial_situation'] != "None":
         try:
-            tree.create_node('Situation Familiale : {}'.format(copainsdavant_results['familial_situation'].strip()),44984154114515,parent=3)
+            tree.create_node('Familial Situation : {}'.format(copainsdavant_results['familial_situation'].strip()),44984154114515,parent=3)
         except:
             pass
     if copainsdavant_results['nb_enfants'] != "None":
         try:
-            tree.create_node('Nombre enfants : {}'.format(copainsdavant_results['nb_enfants']),1654518948741,parent=3)
+            tree.create_node('Number of kids : {}'.format(copainsdavant_results['nb_enfants']),1654518948741,parent=3)
         except:
             pass
 if bfmtv_results is not None:
