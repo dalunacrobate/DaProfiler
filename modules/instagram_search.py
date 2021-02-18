@@ -17,5 +17,6 @@ def ig_search(name,pren):
         username = (i.split('</a><p>')[1].replace('</p></div>',''))
         at_username = (i.split('</a><p>')[0].split('Instagram\'s posts" class="profile-name-link" href="')[1].split('">')[1])
         profile_formated = ('{}\t| {}'.format(at_username,username))
-        profiles.append(profile_formated)
+        if name.lower() in profile_formated.lower() and name.lower() in profile_formated.lower():
+            profiles.append(profile_formated)
     return profiles
