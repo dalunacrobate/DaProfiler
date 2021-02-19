@@ -156,31 +156,34 @@ if pagesblanche is not None:
     if pagesblanche['Type_tel'] is not None:
         tree.create_node('Type  : {}'.format(pagesblanche['Type_tel']),66,parent=44)
 if copainsdavant_results is not None:
-    tree.create_node(Fore.RED+"Copains d'avant"+Fore.RESET,3,parent=1)
-    tree.create_node('Full Name    : {}'.format(copainsdavant_results['full_name']),77,parent=3)
-    tree.create_node('Born Date    : {}'.format(copainsdavant_results['born']),88,parent=3)
-    tree.create_node('Localisation : {}'.format(copainsdavant_results['localisation']),99,parent=3)
-    tree.create_node('Url          : {}'.format(copainsdavant_results['url_full']),111,parent=3)
-    if copainsdavant_results['pdp'] != "None":
-        try:
-            tree.create_node('Profile Picture : {}'.format(copainsdavant_results['pdp']),151515454545,parent=3)
-        except:
-            pass
-    if copainsdavant_results['Job'] != "None":
-        try:
-            tree.create_node('Job : {}'.format(copainsdavant_results['Job']),154156132489411,parent=3)
-        except:
-            pass
-    if copainsdavant_results['familial_situation'] != "None":
-        try:
-            tree.create_node('Familial Situation : {}'.format(copainsdavant_results['familial_situation'].strip()),44984154114515,parent=3)
-        except:
-            pass
-    if copainsdavant_results['nb_enfants'] != "None":
-        try:
-            tree.create_node('Number of kids : {}'.format(copainsdavant_results['nb_enfants']),1654518948741,parent=3)
-        except:
-            pass
+    try:
+        tree.create_node(Fore.RED+"Copains d'avant"+Fore.RESET,3,parent=1)
+        tree.create_node('Full Name    : {}'.format(copainsdavant_results['full_name']),77,parent=3)
+        tree.create_node('Born Date    : {}'.format(copainsdavant_results['born']),88,parent=3)
+        tree.create_node('Localisation : {}'.format(copainsdavant_results['localisation']),99,parent=3)
+        tree.create_node('Url          : {}'.format(copainsdavant_results['url_full']),111,parent=3)
+        if copainsdavant_results['pdp'] != "None":
+            try:
+                tree.create_node('Profile Picture : {}'.format(copainsdavant_results['pdp']),151515454545,parent=3)
+            except:
+                pass
+        if copainsdavant_results['Job'] != "None":
+            try:
+                tree.create_node('Job : {}'.format(copainsdavant_results['Job']),154156132489411,parent=3)
+            except:
+                pass
+        if copainsdavant_results['familial_situation'] != "None":
+            try:
+                tree.create_node('Familial Situation : {}'.format(copainsdavant_results['familial_situation'].strip()),44984154114515,parent=3)
+            except:
+                pass
+        if copainsdavant_results['nb_enfants'] != "None":
+            try:
+                tree.create_node('Number of kids : {}'.format(copainsdavant_results['nb_enfants']),1654518948741,parent=3)
+            except:
+                pass
+    except TypeError:
+        pass
 if bfmtv_results is not None:
     tree.create_node(Fore.BLUE+"Work - Job"+Fore.RESET,4,parent=1)
     tree.create_node('Adress    : {}'.format(bfmtv_results['addr']),888,parent=4)
