@@ -9,7 +9,7 @@ def leak_check_api(mail):
     """
     GET YOUR KEY AT https://leakcheck.net/ 
     """
-    keyy = "YOUR_KEY"
+    keyy = "ceca6ec2adbcecee9569ddb3f7874213df8fa7aa"
     if keyy == "YOUR_KEY":
         return None
     else:
@@ -41,5 +41,4 @@ def leak_check_api(mail):
                 return None
             return full_results
         except:
-            print(Fore.RED+"[!] LeackCheck API ERROR | INVALID KEY PROVIDED or IP NOT LINKED\n"+Fore.RESET)
             return None
