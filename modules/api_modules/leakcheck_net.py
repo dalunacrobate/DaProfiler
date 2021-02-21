@@ -9,7 +9,7 @@ def leak_check_api(mail):
     """
     GET YOUR KEY AT https://leakcheck.net/ 
     """
-    keyy = "ceca6ec2adbcecee9569ddb3f7874213df8fa7aa"
+    keyy = "YOUR_KEY"
     if keyy == "YOUR_KEY":
         return None
     else:
