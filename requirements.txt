@@ -1,6 +1,6 @@
 requests
 bs4
-scrape-search-engine
+scrape-search-engine>=0.2.0
 colorama
 treelib
 holehe
