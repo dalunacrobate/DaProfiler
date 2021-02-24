@@ -292,11 +292,11 @@ if possible_mail is not None:
         nb= str((len(possible_mail)))
         if int(nb) != 0:
             tree.create_node("("+Fore.YELLOW+nb+Fore.RESET+") "+Fore.YELLOW+"Possible Mailbox"+Fore.RESET,8,parent=146)
-            write(f'({str(len(possible_mail))}) Possible Mailbox',possible_mail)
+            write(f'({str(len(possible_mail))}) Possible Mailbox : ',possible_mail)
             for i in possible_mail:
                 tree.create_node(i,parent=8)
 if facebook_results is not None:
-    write(f'({str(len(facebook_results))}) Facebook',facebook_results)
+    write(f'({str(len(facebook_results))}) Facebook : ',facebook_results)
     nb = str(len(facebook_results))
     tree.create_node(Fore.BLUE+"Facebook"+Fore.RESET,9,parent=1)
     tree.create_node('Accounts : {}'.format(nb),10,parent=9)
