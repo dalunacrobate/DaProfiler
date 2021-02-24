@@ -29,12 +29,14 @@ parser.add_argument("-n", "--name", help="Victim name")
 parser.add_argument('-l','--logging',help="Enable terminal logging (Optional)")
 parser.add_argument('-ln','--lastname',help="Last name of victim")
 parser.add_argument('-e','--email',help="Email (Optional)")
+parser.add_argument('-O','--output',help="( -O output.txt )")
 args = parser.parse_args()
 
 name     = (args.lastname)
 pren     = (args.name)
 log      = (args.logging)
 email    = (args.email)
+output   = (args.output)
 
 if sys.platform == 'win32':
     os.system('cls')
@@ -113,6 +115,28 @@ else:
     email = ""
     email_value = False
 
+if output is not None:
+    with open(output,'a+') as f:
+        f.write('Results on target : {} {} {}\n\n'.format(name,pren,email))
+        f.close()
+
+def write(typee,objectt):
+    if output is not None:
+        with open(str(output),'a+',encoding='utf-8') as f:
+            f.write('\n')
+            if len(typee) == 0:
+                pass
+            else:
+                f.write((typee)+"\n")
+            for i in range(len(typee)):
+                f.write('=')
+            f.write('\n')
+            if type(objectt) == list:
+                for i in objectt:
+                    f.write('- '+i+"\n")
+            elif type(objectt) == str:
+                f.write(objectt)
+
 print("\r")
 tree = Tree()
 tree.create_node(f"{pren} {name} {email}", 1)
@@ -145,10 +169,14 @@ if email_value == True:
     except TypeError:
         pass
 if pagesblanche is not None:
+    full_name = pagesblanche['Name']
+    adress = pagesblanche['Adress']
+    phone = pagesblanche['Phone']
+    write("Adress - Phone : ",[str('Full Name : '+full_name),str('Adress : '+adress),str('Phone : '+phone)])
     tree.create_node(Fore.YELLOW+"Adress - Phone"+Fore.RESET,2,parent=1)
-    tree.create_node("Full Name : {}".format(pagesblanche['Name']),22,parent=2)
-    tree.create_node("Adress    : {}".format(pagesblanche['Adress']),33,parent=2)
-    tree.create_node("Phone     : {}".format(pagesblanche['Phone']),44,parent=2)
+    tree.create_node("Full Name : {}".format(full_name),22,parent=2)
+    tree.create_node("Adress    : {}".format(adress),33,parent=2)
+    tree.create_node("Phone     : {}".format(phone),44,parent=2)
     if pagesblanche['carrier'] is not None:
         tree.create_node('Carrier : {}'.format(pagesblanche['carrier']),894,parent=44)
     if pagesblanche['Loc_phone'] is not None:
@@ -160,8 +188,9 @@ if copainsdavant_results is not None:
         tree.create_node(Fore.RED+"Copains d'avant"+Fore.RESET,3,parent=1)
         tree.create_node('Full Name    : {}'.format(copainsdavant_results['full_name']),77,parent=3)
         tree.create_node('Born Date    : {}'.format(copainsdavant_results['born']),88,parent=3)
-        tree.create_node('Localisation : {}'.format(copainsdavant_results['localisation']),99,parent=3)
+        tree.create_node('Location : {}'.format(copainsdavant_results['localisation']),99,parent=3)
         tree.create_node('Url          : {}'.format(copainsdavant_results['url_full']),111,parent=3)
+        write('Copains d\'avant : ',[str('Full Name : '+copainsdavant_results['full_name']),str('Born Date : '+copainsdavant_results['born']),str('Location : '+copainsdavant_results['localisation']),str('URL : '+copainsdavant_results['url_full'])])
         if copainsdavant_results['pdp'] != "None":
             try:
                 tree.create_node('Profile Picture : {}'.format(copainsdavant_results['pdp']),151515454545,parent=3)
@@ -185,6 +214,7 @@ if copainsdavant_results is not None:
     except TypeError:
         pass
 if bfmtv_results is not None:
+    write('Work - Job : ',[str('Adress : '+bfmtv_results['addr']),str('Company : '+bfmtv_results['company']),str('Full Name : '+bfmtv_results['full_name']),str('Function : '+bfmtv_results['fonction']),str('Warrant : '+bfmtv_results['mandats']),str('URL : '+bfmtv_results['link'])])
     tree.create_node(Fore.BLUE+"Work - Job"+Fore.RESET,4,parent=1)
     tree.create_node('Adress    : {}'.format(bfmtv_results['addr']),888,parent=4)
     tree.create_node('Company   : {}'.format(bfmtv_results['company']),777,parent=4)
@@ -194,10 +224,12 @@ if bfmtv_results is not None:
     tree.create_node('Function  : {}'.format(bfmtv_results['fonction']),444,parent=4)
     tree.create_node('Warrant   : {}'.format(bfmtv_results['mandats']),555,parent=4)
 if twitter_results is not None:
+    write(f'({str(len(twitter_results))}) Twitter : ',twitter_results)
     tree.create_node(Fore.CYAN+"Twitter"+Fore.RESET,5,parent=1)
     for i in twitter_results:
         tree.create_node(i,parent=5)
 if skype_results is not None:
+    write(f'({str(len(skype_results))}) Skype : ',skype_results)
     tree.create_node(Fore.CYAN+"Skype"+Fore.RESET,6,parent=1)
     tree.create_node("Accounts : {}".format(str(len(skype_results))),12,parent=6)
     for i in skype_results:
@@ -208,6 +240,7 @@ if instagram_results is not None:
     if len(instagram_results) ==  0:
         pass
     else:
+        write(f'({str(len(instagram_results))}) Instagram : ',instagram_results)
         tree.create_node(Fore.MAGENTA+"Instagram"+Fore.RESET,7,parent=1)
         tree.create_node('Accounts : {}'.format(str(len(instagram_results))),13,parent=7)
         for i in instagram_results:
@@ -255,17 +288,18 @@ if possible_mail is not None:
                             tree.create_node('Password  : {}'.format(password),parent=number_pass)
                             tree.create_node('Leak Name : {}'.format(leak_name),parent=number_pass)
                             tree.create_node('Leak Date : {}'.format(leak_date),parent=number_pass)
+            write(f'({str(len(no_doubles))}) High Probability Emails : ',no_doubles)
         nb= str((len(possible_mail)))
         if int(nb) != 0:
             tree.create_node("("+Fore.YELLOW+nb+Fore.RESET+") "+Fore.YELLOW+"Possible Mailbox"+Fore.RESET,8,parent=146)
+            write(f'({str(len(possible_mail))}) Possible Mailbox',possible_mail)
             for i in possible_mail:
                 tree.create_node(i,parent=8)
 if facebook_results is not None:
+    write(f'({str(len(facebook_results))}) Facebook',facebook_results)
     nb = str(len(facebook_results))
     tree.create_node(Fore.BLUE+"Facebook"+Fore.RESET,9,parent=1)
     tree.create_node('Accounts : {}'.format(nb),10,parent=9)
     for i in facebook_results:
         tree.create_node(i,parent=10)
 tree.show()
-
-# By Dalunacrobate#6166 from Prism Intelligence Group
