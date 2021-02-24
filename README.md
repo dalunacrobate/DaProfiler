@@ -4,15 +4,16 @@
 
 
 
-A but educatif seulement.
+FR : A but educatif seulement.
+EN : For educational purposes only.
 
 ![alt text](https://i.ibb.co/5xhj7pZ/8b9770d14be1d8c3f86d157d32d4044e.png)
 # DaProfiler
 
-**FRENCH** DaProfiler vous permet de créer un profil sur votre **target** basé en France uniquement.
+**FR** DaProfiler vous permet de créer un profil sur votre **target** basé en France uniquement.
 La particularité de ce programme est sa capacité à retrouver les adresses mails d'une cible via des recherches sur [Skype](https://www.skype.com/) et des essais de combinaison d'adresses mails suivies d'une vérification pour savoir si l'adresse mail existe ou non (Attention aux faux négatifs, les résultats affichés ne concernent pas forcément la cible que vous recherchez si une autre personne porte le meme nom - prénom) .
 
-**English** DaProfiler allows you to create a profile on your ** target ** based in France only.
+**EN** DaProfiler allows you to create a profile on your ** target ** based in France only.
 The particularity of this program is its ability to find the e-mail addresses of a target via searches on [Skype] (https://www.skype.com/) and tests of combining e-mail addresses followed by a check to know if the email address exists or not (Beware of false negatives, the results displayed do not necessarily relate to the target you are looking for if another person has the same name - first name).
 
 ## 🛠 Installation - Linux
