@@ -4,8 +4,8 @@
 
 
 
-FR : A but educatif seulement.
-EN : For educational purposes only.
+**FR** : A but educatif seulement.<br />
+**EN** : For educational purposes only.
 
 ![alt text](https://i.ibb.co/5xhj7pZ/8b9770d14be1d8c3f86d157d32d4044e.png)
 # DaProfiler
