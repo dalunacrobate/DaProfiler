@@ -8,18 +8,22 @@ A but educatif seulement.
 
 ![alt text](https://i.ibb.co/5xhj7pZ/8b9770d14be1d8c3f86d157d32d4044e.png)
 # DaProfiler
-DaProfiler vous permet de créer un profil sur votre **target** basé en France uniquement.
-La particularité de ce programme est sa capacité à retrouver les adresses mails d'une cible via des recherches sur [Skype](https://www.skype.com/fr/) et des essais de combinaison d'adresses mails suivies d'une vérification pour savoir si l'adresse mail existe ou non (Attention aux faux négatifs, les résultats affichés ne concernent pas forcément la cible que vous recherchez si une autre personne porte le meme nom - prénom) .
+
+**FRENCH** DaProfiler vous permet de créer un profil sur votre **target** basé en France uniquement.
+La particularité de ce programme est sa capacité à retrouver les adresses mails d'une cible via des recherches sur [Skype](https://www.skype.com/) et des essais de combinaison d'adresses mails suivies d'une vérification pour savoir si l'adresse mail existe ou non (Attention aux faux négatifs, les résultats affichés ne concernent pas forcément la cible que vous recherchez si une autre personne porte le meme nom - prénom) .
+
+**English** DaProfiler allows you to create a profile on your ** target ** based in France only.
+The particularity of this program is its ability to find the e-mail addresses of a target via searches on [Skype] (https://www.skype.com/) and tests of combining e-mail addresses followed by a check to know if the email address exists or not (Beware of false negatives, the results displayed do not necessarily relate to the target you are looking for if another person has the same name - first name).
 
 ## 🛠 Installation - Linux
 
-Python 3.8 requis
+Python 3.8 required
 ```bash
 git clone https://github.com/dalunacrobate/DaProfiler.git
 cd DaProfiler
 pip install -r requirements.txt
 ```
-## 💻 Utilisation
+## 💻 Use
 ```bash
 profiler.py -n [NAME] -ln [LAST NAME] -l True -O txt_file.txt
 (Target Name) (Target Last Name) (Enable Terminal Logging) (Output to txt_file.txt)
@@ -52,16 +56,17 @@ optional arguments:
 | apilayer.net | Phone infos | Free ✅ | ✅ |
 | Scylla | Breach Search | Free ✅ | No Key |
 
-Ajouter vos clés d'api premium :
-+ Allez dans [modules\api_modules](https://github.com/dalunacrobate/DaProfiler/tree/main/modules/api_modules) et ouvrez le module qui correspond à votre API, remplacez "YOUR_KEY" par votre clé, sauvegardez et quittez votre editeur de texte
+Add your premium api keys :
++ Go to [modules\api_modules](https://github.com/dalunacrobate/DaProfiler/tree/main/modules/api_modules) then open your API module (ex Leakcheck), replace "YOUR_KEY" to your key, save and quit your text editor.
 
 ##  📝 Contact
 Mail : _daluna_pro@protonmail.ch_.
 
-Mon discord : `Dalunacrobate#6166`
+Text me on discord : `Dalunacrobate#6166`
+Discord server : https://discord.gg/WHNPFf4EJw
 
 ## 📚 Contributions
-Toutes suggestions sont les bienvenues.
+All suggestions are welcome.
 
 ![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)
 
