@@ -21,12 +21,12 @@ pip install -r requirements.txt
 ```
 ## 💻 Utilisation
 ```bash
-profiler.py -n [NAME] -ln [LAST NAME] -l True
-(Target Name) (Target Last Name) (Enable Terminal Logging)
+profiler.py -n [NAME] -ln [LAST NAME] -l True -O txt_file.txt
+(Target Name) (Target Last Name) (Enable Terminal Logging) (Output to txt_file.txt)
 
 =====================================================================
 
-usage: profiler.py [-h] [-n NAME] [-l LOGGING] [-ln LASTNAME] [-e EMAIL]
+usage: profiler.py [-h] [-n NAME] [-l LOGGING] [-ln LASTNAME] [-e EMAIL] [-O OUTPUT]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -37,6 +37,8 @@ optional arguments:
                         Last name of victim
   -e EMAIL, --email EMAIL
                         Email (Optional)
+  -O OUTPUT, --output OUTPUT
+                        ( -O output.txt )
 ```
 
 ## 📷 Demo
