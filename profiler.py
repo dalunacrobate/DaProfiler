@@ -43,32 +43,33 @@ if sys.platform == 'win32':
 else:
     os.system('clear')
 
-print("Author : Dalunacrobate | Mail : "+Fore.CYAN+"daluna_pro@protonmail.ch\n"+Fore.RESET)
-print("\r")
+print("DaProfiler - Inspired from Profiler CToS")
+print("Github : "+Fore.YELLOW+"https://github.com/dalunacrobate\n"+Fore.RESET)
+print("\r\r")
 
 try:
     if pren and name is not None:
-        logging.terminal_loggin(log,text=(" - Searching for Facebook accounts ...     \n"))
+        logging.terminal_loggin(log,text=("Searching for Facebook accounts ...     \n"))
         facebook_results = facebook_search.facebook_search(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching for Twitter accounts ...      \n"))
+        logging.terminal_loggin(log,text=("Searching for Twitter accounts ...      \n"))
         twitter_results = twitter_search.twitter_search(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching for Death records ...         \n"))
+        logging.terminal_loggin(log,text=("Searching for Death records ...         \n"))
         avis_deces_results = death_records.death_search(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching for Company ...               \n"))
+        logging.terminal_loggin(log,text=("Searching for Company ...               \n"))
         bfmtv_results = dirigeants_bfmtv.bfmtv_search(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching for instagram accounts ...    \n"))
+        logging.terminal_loggin(log,text=("Searching for instagram accounts ...    \n"))
         instagram_results = instagram_search.ig_search(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching for CopainsDavant accounts ...\n"))
+        logging.terminal_loggin(log,text=("Searching for CopainsDavant accounts ...\n"))
         copainsdavant_results = copainsdavant_search.copains_davant(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching for Skype accounts ...        \n"))
+        logging.terminal_loggin(log,text=("Searching for Skype accounts ...        \n"))
         skype_results = skype_search.skype_searchh(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching for Phones and Adresses ...   \n"))
+        logging.terminal_loggin(log,text=("Searching for Phones and Adresses ...   \n"))
         pagesblanche = pagesblanches_search.adresse_search(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching for Mail adresses ...         \n"))
+        logging.terminal_loggin(log,text=("Searching for Mail adresses ...         \n"))
         possible_mail = mail_gen.check(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching for Mail from Skype ...       \n"))
+        logging.terminal_loggin(log,text=("Searching for Mail from Skype ...       \n"))
         skype2mail = mail_gen.skype2email(name=name,pren=pren)
-        logging.terminal_loggin(log,text=(" - Searching Leaked Passwords and social networks on emails ...       \n"))
+        logging.terminal_loggin(log,text=("Searching Leaked Passwords and social networks on emails ...       \n"))
     elif len(pren) and len(name) == 0:
         facebook_results = None
         twitter_results = None
