@@ -285,7 +285,7 @@ if possible_mail is not None:
                     if accs == "Accounts found : ":
                         pass
                     else:
-                        if len(accs) >= 4:
+                        if len(accs) > 4:
                             possible_usernames.append(i.split('@')[0])
                         chars = "abcdefghijklmnopqrstuvwxyz1234567890"
                         number_soc = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
