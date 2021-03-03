@@ -240,23 +240,32 @@ if instagram_results is not None:
     if len(instagram_results) ==  0:
         pass
     else:
-        write(f'({str(len(instagram_results))}) Instagram : ',instagram_results)
         tree.create_node(Fore.MAGENTA+"Instagram"+Fore.RESET,7,parent=1)
         tree.create_node('Accounts : {}'.format(str(len(instagram_results))),13,parent=7)
         for i in instagram_results:
             chars = "abcdefghijklmnopqrstuvwxyz1234567890"
-            number_sk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+            number_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
             username = i.split('|')[0].replace('@','').strip()
             bio_infos = instagram_search.getInstagramEmailFromBio(username)
-            tree.create_node(i,number_sk,parent=13)
+            tree.create_node(i,number_ski,parent=13)
             bio_emails = bio_infos['Emails']
             paypal_bio = bio_infos['Paypals']
             if paypal_bio is not None:
                 for i in paypal_bio:
-                    tree.create_node('Paypal in bio -> '+i,parent=number_sk)
+                    tree.create_node('Paypal in bio -> '+i,parent=number_ski)
             if bio_emails is not None:
                 for i in bio_emails:
-                    tree.create_node('Email from bio -> '+Fore.CYAN+i+Fore.RESET,parent=number_sk)
+                    write('Searching infos on ',i)
+                    chars = "abcdefghijklmnopqrstuvwxyz1234567890"
+                    number_skkk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+                    number_skk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+                    tree.create_node('Email from bio -> '+Fore.CYAN+i+Fore.RESET,number_skkk,parent=number_ski)
+                    accs = holehe_module.social_scan(email=email)
+                    if len(accs) != 0:
+                        chars = "abcdefghijklmnopqrstuvwxyz1234567890"
+                        number_sk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+                        tree.create_node(Fore.MAGENTA+"Account Detection"+Fore.RESET,number_sk,parent=number_skkk)
+                        tree.create_node(accs,parent=number_sk)
 if possible_mail is not None:
     if len(possible_mail) != 0 or len(skype2mail) != 0:
         tree.create_node(Fore.RED+'Emails extracted'+Fore.RESET,146,parent=1)
