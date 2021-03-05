@@ -250,8 +250,26 @@ if instagram_results is not None:
             username = i.split('|')[0].replace('@','').strip()
             bio_infos = instagram_search.getInstagramEmailFromBio(username)
             tree.create_node(i,number_ski,parent=13)
-            bio_emails = bio_infos['Emails']
-            paypal_bio = bio_infos['Paypals']
+            bio_emails = bio_infos['emails']
+            paypal_bio = bio_infos['paypal']
+            city_loc   = bio_infos['city_list']
+            is_lgbt    = bio_infos['lgbt_points']
+            schoolname = bio_infos['school']
+            bestfriend = bio_infos['best_friend']
+            love_date  = bio_infos['love_date']
+            age_bio    = bio_infos['age']
+            if bestfriend is not None:
+                nnumber_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+                tree.create_node('Good relationship with',nnumber_ski,parent=number_ski)
+                for i in bestfriend:
+                    tree.create_node('{}'.format(i),parent=nnumber_ski)
+            if is_lgbt is not None:
+                lgbt_flag = (Fore.RED+"█"+Fore.YELLOW+"█"+Fore.GREEN+"█"+Fore.BLUE+"█"+Fore.MAGENTA+"█"+Fore.RESET)
+                tree.create_node('{} LGBT Member'.format(lgbt_flag),parent=number_ski)
+            if schoolname is not None:
+                tree.create_node('School Name : {}'.format(schoolname),parent=number_ski)
+            if city_loc is not None:
+                tree.create_node('City : {}'.format(city_loc[0]),parent=number_ski)
             if paypal_bio is not None:
                 for i in paypal_bio:
                     tree.create_node('Paypal in bio -> '+i,parent=number_ski)
