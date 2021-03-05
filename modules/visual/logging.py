@@ -5,7 +5,7 @@ def terminal_loggin(log,text):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     text = (current_time, text)
-    if log == "True":
+    if log.lower() == "true":
         print ("\033[A                             \033[A")
         for i in text: 
             print(i, end ='\r')
