@@ -258,6 +258,10 @@ if instagram_results is not None:
             bestfriend = bio_infos['best_friend']
             love_date  = bio_infos['love_date']
             age_bio    = bio_infos['age']
+            ethnicity  = bio_infos['origins'] #
+            facebook_l = bio_infos['fb_list'] #
+            twitter_l  = bio_infos['twitter_list'] #
+
             if bestfriend is not None:
                 nnumber_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
                 tree.create_node('Good relationship with',nnumber_ski,parent=number_ski)
@@ -266,6 +270,12 @@ if instagram_results is not None:
             if is_lgbt is not None:
                 lgbt_flag = (Fore.RED+"█"+Fore.YELLOW+"█"+Fore.GREEN+"█"+Fore.BLUE+"█"+Fore.MAGENTA+"█"+Fore.RESET)
                 tree.create_node('{} LGBT Member'.format(lgbt_flag),parent=number_ski)
+            if ethnicity is not None:
+                tree.create_node('Ethnicity : {}'.format(str(ethnicity).replace('[','').replace(']','').replace("'","")),parent=number_ski)
+            if facebook_l is not None:
+                tree.create_node('Facebook : {}'.format(str(facebook_l).replace('[','').replace(']','').replace("'","")),parent=number_ski)
+            if twitter_l is not None:
+                tree.create('Twitter : {}'.format(str(twitter_l).replace('[','').replace(']','').replace("'","")),parent=number_ski)
             if schoolname is not None:
                 tree.create_node('School Name : {}'.format(schoolname),parent=number_ski)
             if city_loc is not None:
