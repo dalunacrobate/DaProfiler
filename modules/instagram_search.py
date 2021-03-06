@@ -244,7 +244,6 @@ def getInstagramEmailFromBio(username):
             bio_infos['paypal'] = None
         else:
             bio_infos['paypal'] = paypals[0]
-        print(bio_infos)
         return bio_infos
 
 def ig_search(name,pren):
