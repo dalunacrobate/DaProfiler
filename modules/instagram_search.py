@@ -74,6 +74,7 @@ def getInstagramEmailFromBio(username):
 
     for bio in bios:
         lines = bio.split('\n')
+
         emailss = [
             '@icloud.com',
             '@gmail.com',
@@ -122,6 +123,7 @@ def getInstagramEmailFromBio(username):
         flag_list       = []
 
         for line in lines:
+            print(line)
             line = line.replace('</a','').replace('<a href="/v','').replace('<a href="/t/','')
             line = line.lower()
             for flagos in ethnical_origins:
@@ -144,8 +146,8 @@ def getInstagramEmailFromBio(username):
                 twitter_list.append(line)
             if len(temp_list_love) == 2:
                 love_date_since.append(line)
-            if "📍" in line or "📍" in line:
-                city_list.append(line.replace('📍','').replace(':',''))
+            if "📍" in line or "📌" in line:
+                city_list.append(line.replace('📍','').replace('📌','').replace(':',''))
             if "snapchat" in line or "snap" in line or "👻" in line:
                 line = line.replace('👻','').strip()
                 if ":" in line:
