@@ -123,7 +123,6 @@ def getInstagramEmailFromBio(username):
         flag_list       = []
 
         for line in lines:
-            print(line)
             line = line.replace('</a','').replace('<a href="/v','').replace('<a href="/t/','')
             line = line.lower()
             for flagos in ethnical_origins:
