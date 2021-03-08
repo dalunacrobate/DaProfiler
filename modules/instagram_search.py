@@ -29,6 +29,40 @@ def getInstagramEmailFromBio(username):
     
     bios.append(bioo)
 
+    religions = [
+        ('✡️','Judaism'),
+        ('☪️','Islam'),
+        ('☦️','Orthodox'),
+        ('✝️','Christ'),
+        ('🕋','Islam')
+    ]
+
+    hobbies = [
+        ('🥊','Boxing'),
+        ('🐎','Horses'),
+        ('🐴','Horses'),
+        ('🎾','Tennis'),
+        ('⚽','Football'),
+        ('🥋','Martial Arts'),
+        ('🏀','Basketball'),
+        ('🏈','American Football')
+    ]
+
+    astrology_signs = [
+        ('♈','Aries','March 21 - April 20'),
+        ('♉','Taurus','April 21 - May 21'),
+        ('♊','Gemini','May 22 - June 21'),
+        ('♋','Cancer','June 22 - July 22'),
+        ('♌','Leo','July 23 - August 22'),
+        ('♍','Virgo','August 23 - September 23'),
+        ('♎','Libra','September 24 - October 23'),
+        ('♏','Scorpius','October 24 - November 22'),
+        ('♐','Sagittarius','November 23 - December 21'),
+        ('♑','Capricorn','December 22 - January 20'),
+        ('♒','Aquarius','January 21 - February 19'),
+        ('♓','Pisces','February 20 - March 20')
+    ]
+
     ethnical_origins = [
         ('🇫🇷','France'),
         ('🇨🇭','Swiss'),
@@ -105,7 +139,8 @@ def getInstagramEmailFromBio(username):
             '@protonmail.com',
             '@protonmail.ch',
             '@thepauseagency.com',
-            '@alexotime.com'
+            '@alexotime.com',
+            '@tomorrowhub.com'
         ]
 
         bio_infos       = {}
@@ -121,14 +156,29 @@ def getInstagramEmailFromBio(username):
         fb_list         = []
         twitter_list    = []
         flag_list       = []
+        religions_targ  = []
+        astro_sign      = []
+        hobbies_emojis  = []
 
         for line in lines:
             line = line.replace('</a','').replace('<a href="/v','').replace('<a href="/t/','')
             line = line.lower()
+            for i in religions:
+                emoji, religionName = i
+                if emoji in line or religionName.lower() in line:
+                    religions_targ.append(religionName)
+            for i in astrology_signs:
+                emoji, sign, date = i
+                if emoji in line:
+                    astro_sign.append('{} | {}'.format(sign,date))
             for flagos in ethnical_origins:
                 flag, country_full = flagos
                 if flag in line:
                     flag_list.append(country_full)
+            for i in hobbies:
+                emoji, name = i
+                if emoji in line:
+                    hobbies_emojis.append(name)
             temp_list_love = []
             for chars in line:
                 if chars == "/":
@@ -162,7 +212,14 @@ def getInstagramEmailFromBio(username):
                     ages.append(line)
                 else:
                     try:
-                        age = int(line.split("y")[0].strip())
+                        if "years" in line:
+                            age = int(line.split("years")[0].replace('years','').strip())
+                        elif "yo" in line:
+                            age = int(line.split("yo")[0].replace('yo','').strip())
+                        elif 'y' in line:
+                            age = int(line.split("y")[0].replace('y','').strip())
+                        else:
+                            age = int(line.split("years")[0].strip())
                         ages.append(str(age))
                     except ValueError:
                         ages.append('Verify by yourself')
@@ -197,6 +254,18 @@ def getInstagramEmailFromBio(username):
                 if len(temp_list_emails) == 0:
                     best_friend.append(aaa.replace('</a',''))
                 """
+        if len(hobbies_emojis) == 0:
+            bio_infos['Hobbies'] = None
+        else:
+            bio_infos['Hobbies'] = hobbies_emojis
+        if len(religions_targ) == 0:
+            bio_infos['religions'] = None
+        else:
+            bio_infos['religions'] = religions_targ
+        if len(astro_sign) == 0:
+            bio_infos['astrology'] = None
+        else:
+            bio_infos['astrology'] = astro_sign
         if len(flag_list) == 0:
             bio_infos['origins'] = None
         else:
