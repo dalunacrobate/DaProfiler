@@ -258,10 +258,27 @@ if instagram_results is not None:
             bestfriend = bio_infos['best_friend']
             love_date  = bio_infos['love_date']
             age_bio    = bio_infos['age']
-            ethnicity  = bio_infos['origins'] #
-            facebook_l = bio_infos['fb_list'] #
-            twitter_l  = bio_infos['twitter_list'] #
-
+            ethnicity  = bio_infos['origins']
+            facebook_l = bio_infos['fb_list']
+            twitter_l  = bio_infos['twitter_list']
+            hobbies    = bio_infos['Hobbies']
+            religions  = bio_infos['religions']
+            astrologys = bio_infos['astrology']
+            if astrologys is not None:
+                nnumber_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+                tree.create_node('Astrologic sign',nnumber_ski,parent=number_ski)
+                for i in astrologys:
+                    tree.create_node(i,parent=nnumber_ski)
+            if religions is not None:
+                nnumber_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+                tree.create_node('Religion(s)',nnumber_ski,parent=number_ski)
+                for i in religions:
+                    tree.create_node(i,parent=nnumber_ski)
+            if hobbies is not None:
+                nnumber_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+                tree.create_node('Hobbies',nnumber_ski,parent=number_ski)
+                for i in hobbies:
+                    tree.create_node(i,parent=nnumber_ski)
             if bestfriend is not None:
                 nnumber_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
                 tree.create_node('Good relationship with',nnumber_ski,parent=number_ski)
