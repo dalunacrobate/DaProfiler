@@ -45,7 +45,13 @@ def getInstagramEmailFromBio(username):
         ('⚽','Football'),
         ('🥋','Martial Arts'),
         ('🏀','Basketball'),
-        ('🏈','American Football')
+        ('🏈','American Football'),
+        ('🏐','Volleyball'),
+        ('🎻','Violin'),
+        ('🎸','Guitar'),
+        ('🎹','Piano'),
+        ('🎣','Fishing'),
+        ('⛷️','Ski')
     ]
 
     astrology_signs = [
@@ -159,6 +165,7 @@ def getInstagramEmailFromBio(username):
         religions_targ  = []
         astro_sign      = []
         hobbies_emojis  = []
+        love_situation  = []
 
         for line in lines:
             line = line.replace('</a','').replace('<a href="/v','').replace('<a href="/t/','')
@@ -183,6 +190,10 @@ def getInstagramEmailFromBio(username):
             for chars in line:
                 if chars == "/":
                     temp_list_love.append('.')
+            if "en couple" in line or "🔒" in line or "🔐" in line:
+                love_situation.append('Not Free | Taken')
+            if "celib" in line:
+                love_situation.append('Single | Free')
             if "🏳️‍🌈" in line or "🏳️‍⚧️" in line:
                 lgbt_points.append('.')
             if "facebook" in line:
@@ -197,7 +208,7 @@ def getInstagramEmailFromBio(username):
                 love_date_since.append(line)
             if "📍" in line or "📌" in line:
                 city_list.append(line.replace('📍','').replace('📌','').replace(':',''))
-            if "snapchat" in line or "snap" in line or "👻" in line:
+            if "snapchat" in line or "snap" in line or "👻" in line or "sc : " in line or "sc:" in line:
                 line = line.replace('👻','').strip()
                 if ":" in line:
                     line = line.split(':')[1].strip()
@@ -245,15 +256,10 @@ def getInstagramEmailFromBio(username):
                                     if ":" in line:
                                         line = line.split(':')[1].strip()
                                     emails_final.append(line)
-                """
-                aaa = ("@"+line.split('@')[1])
-                for i in emailss:
-                    if aaa == i:
-                        temp_list_emails.append('.')
-                        emails_final.append(line)
-                if len(temp_list_emails) == 0:
-                    best_friend.append(aaa.replace('</a',''))
-                """
+        if len(love_situation) == 0:
+            bio_infos['love_situation'] = None
+        else:
+            bio_infos['love_situation'] = love_situation
         if len(hobbies_emojis) == 0:
             bio_infos['Hobbies'] = None
         else:
