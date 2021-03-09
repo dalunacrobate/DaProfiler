@@ -58,7 +58,10 @@ try:
         logging.terminal_loggin(log,text=("Searching for Death records ...         \n"))
         avis_deces_results = death_records.death_search(name=name,pren=pren)
         logging.terminal_loggin(log,text=("Searching for Company ...               \n"))
-        bfmtv_results = dirigeants_bfmtv.bfmtv_search(name=name,pren=pren)
+        try:
+            bfmtv_results = dirigeants_bfmtv.bfmtv_search(name=name,pren=pren)
+        except:
+            bfmtv_results = None
         logging.terminal_loggin(log,text=("Searching for instagram accounts ...    \n"))
         instagram_results = instagram_search.ig_search(name=name,pren=pren)
         logging.terminal_loggin(log,text=("Searching for CopainsDavant accounts ...\n"))
