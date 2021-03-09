@@ -265,8 +265,14 @@ if instagram_results is not None:
             facebook_l = bio_infos['fb_list']
             twitter_l  = bio_infos['twitter_list']
             hobbies    = bio_infos['Hobbies']
+            love_situa = bio_infos['love_situation']
             religions  = bio_infos['religions']
             astrologys = bio_infos['astrology']
+            if love_situa is not None:
+                nnumber_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+                tree.create_node('Love Situation',nnumber_ski,parent=number_ski)
+                for i in love_situa:
+                    tree.create_node(i,parent=nnumber_ski)
             if astrologys is not None:
                 nnumber_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
                 tree.create_node('Astrologic sign',nnumber_ski,parent=number_ski)
