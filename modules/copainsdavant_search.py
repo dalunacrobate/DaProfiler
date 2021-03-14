@@ -30,27 +30,30 @@ def copains_davant(name,pren):
         pagephone = r.content
         featuresphone = "html.parser"
         soup = BeautifulSoup(pagephone,featuresphone)
-        localisation = str(soup.find('span',{'class':'locality'}).text)
-        naissance = str(soup.find('abbr',{'class':'bday'}).text.strip())
-        name_full = str(soup.find('a',{'class':'url'}).text.strip())
-        photo = str(soup.find('img',{'itemprop':'logo'})).split('itemprop="logo" src="')[1].split('"')[0]
-        if "/anonymousL.jpg" in photo:
-            photo = "None"
-        card = soup.find('section',{'id':'vcard'}).text.strip()
-        job = "None"
-        nb_kids = "None"
-        situation_familiale = "None"
-        if "Situation familiale" in card:
-            situation_familiale = card.split('Situation familiale :')[1].split(' ')[0].strip()
-            situation_familiale = situation_familiale.strip()
-        if "Profession" in card:
-            job = card.split('Profession :')[1].split(' ')[0]
-            job = " ".join(job.split()).split(' ')[0]
-        if "Enfant" in card:
-            nb_kids = card.split("Enfants :")[1].split(" ")[0]
-        text = {'url_full':'http://copainsdavant.linternaute.com{}'.format(profil_url),'familial_situation':str(situation_familiale).replace('Enfants','').replace('Aucune','').strip(),'full_name':str(name_full),'born':str(naissance),'localisation':str(localisation),
-            "nb_enfants":str(nb_kids).strip(),"Job":str(job).strip(),'pdp':str(photo)         
-        }
-        return text
+        try:
+            localisation = str(soup.find('span',{'class':'locality'}).text)
+            naissance = str(soup.find('abbr',{'class':'bday'}).text.strip())
+            name_full = str(soup.find('a',{'class':'url'}).text.strip())
+            photo = str(soup.find('img',{'itemprop':'logo'})).split('itemprop="logo" src="')[1].split('"')[0]
+            if "/anonymousL.jpg" in photo:
+                photo = "None"
+            card = soup.find('section',{'id':'vcard'}).text.strip()
+            job = "None"
+            nb_kids = "None"
+            situation_familiale = "None"
+            if "Situation familiale" in card:
+                situation_familiale = card.split('Situation familiale :')[1].split(' ')[0].strip()
+                situation_familiale = situation_familiale.strip()
+            if "Profession" in card:
+                job = card.split('Profession :')[1].split(' ')[0]
+                job = " ".join(job.split()).split(' ')[0]
+            if "Enfant" in card:
+                nb_kids = card.split("Enfants :")[1].split(" ")[0]
+            text = {'url_full':'http://copainsdavant.linternaute.com{}'.format(profil_url),'familial_situation':str(situation_familiale).replace('Enfants','').replace('Aucune','').strip(),'full_name':str(name_full),'born':str(naissance),'localisation':str(localisation),
+                "nb_enfants":str(nb_kids).strip(),"Job":str(job).strip(),'pdp':str(photo)         
+            }
+            return text
+        except AttributeError:
+            return None
     except IndexError:
         return None
