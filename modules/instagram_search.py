@@ -229,19 +229,22 @@ def get_info_from_bio(bio):
         if "/" in line and '"' in line:
             line = (line.replace('/','@').split('"')[0])
             temp_list_emails.append('.')
-            domain = '@'+line.split('@')[1]
-            if "." not in domain:
-                line = "@"+line.split("@")[1]
-                if " " in line:
-                    line = line.split(' ')[0]
-                    best_friend.append(line)
-                else:
-                    for i in emailss:
-                        if domain == i:
-                            if line not in emails_final:
-                                if ":" in line:
-                                    line = line.split(':')[1].strip()
-                                emails_final.append(line)
+            try:
+                domain = '@'+line.split('@')[1]
+                if "." not in domain:
+                    line = "@"+line.split("@")[1]
+                    if " " in line:
+                        line = line.split(' ')[0]
+                        best_friend.append(line)
+                    else:
+                        for i in emailss:
+                            if domain == i:
+                                if line not in emails_final:
+                                    if ":" in line:
+                                        line = line.split(':')[1].strip()
+                                    emails_final.append(line)
+            except:
+                pass
     
         if len(tiktok_list) == 0:
             bio_infos['tiktok_list'] = None
