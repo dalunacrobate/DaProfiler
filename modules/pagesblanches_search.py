@@ -3,14 +3,14 @@ from colorama import Fore
 from bs4      import BeautifulSoup
 
 def adresse_search(name,pren):
-    r = requests.get('https://www.pagesjaunes.fr/pagesblanches/recherche?quoiqui={} {}'.format(name,pren))
+    r = requests.get('https://www.118000.fr/search?part=1&who={} {}'.format(name,pren))
     page = r.content
     features = "html.parser"
     soup = BeautifulSoup(page, features)
 
-    target_name = soup.find("a", {"class": "denomination-links pj-lb pj-link"})
-    target_addr = soup.find("a", {"class": "adresse pj-lb pj-link"})
-    target_phon = soup.find('strong',{'class':'num'})
+    target_name = soup.find("h2", {"class": "name title inbl"})
+    target_addr = soup.find("div", {"class": "h4 address mtreset"})
+    target_phon = soup.find('a',{'class':'clickable atel'})
 
     try:
         name_full = (target_name.text.strip())
