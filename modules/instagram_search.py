@@ -1,4 +1,4 @@
-import requests, bs4, sys, os
+import json, httpx, urllib, hmac,hashlib, sys, os, bs4, requests
 from bs4   import BeautifulSoup
 
 def cleartext(text):
@@ -356,3 +356,65 @@ def ig_search(name,pren):
         if name.lower() in profile_formated.lower() and name.lower() in profile_formated.lower():
             profiles.append(str(profile_formated))
     return profiles
+
+# ============================================================================
+
+"""
+LICENSE
+This module belong to Palenath | Megadose FROM Toutatis
+
+Github : https://github.com/megadose/
+Twitter : https://twitter.com/palenath
+
+Module name : Toutatis
+Repo : https://github.com/megadose/toutatis
+"""
+
+def advanced_lookup(username):
+    USERS_LOOKUP_URL = 'https://i.instagram.com/api/v1/users/lookup/'
+    SIG_KEY_VERSION = '4'
+    IG_SIG_KEY = 'e6358aeede676184b9fe702b30f4fd35e71744605e39d2181a34cede076b3c33'
+
+    def generate_signature(data):
+        return 'ig_sig_key_version=' + SIG_KEY_VERSION + '&signed_body=' + hmac.new(IG_SIG_KEY.encode('utf-8'),data.encode('utf-8'),hashlib.sha256).hexdigest() + '.'+ urllib.parse.quote_plus(data)
+
+    def generate_data( phone_number_raw):
+        data = {'login_attempt_count': '0',
+                'directly_sign_in': 'true',
+                'source': 'default',
+                'q': phone_number_raw,
+                'ig_sig_key_version': SIG_KEY_VERSION
+                }
+        return data
+
+    data=generate_signature(json.dumps(generate_data(username)))
+    headers={
+    "Accept-Language": "en-US",
+    "User-Agent": "Instagram 101.0.0.15.120",
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    "Accept-Encoding": "gzip, deflate",
+    "X-FB-HTTP-Engine": "Liger",
+    "Connection": "close"}
+    try:
+        r = httpx.post(USERS_LOOKUP_URL,headers=headers,data=data)
+        rep=r.json()
+        return({"user":rep,"error":None})
+    except :
+        return({"user":None,"error":"rate limit"})
+
+def get_extra_data(username):
+    data = advanced_lookup(username)
+    final_dict = {}
+    status = data['user']['status']
+    if status != "ok":
+        return None
+    else:
+        try:
+            final_dict['obfuscated_email'] = data['user']['obfuscated_email']
+        except KeyError:
+            final_dict['obfuscated_email'] = None
+        try:
+            final_dict['obfuscated_phone'] = data['user']['obfuscated_phone']
+        except KeyError:
+            final_dict['obfuscated_phone'] = None
+    return final_dict
