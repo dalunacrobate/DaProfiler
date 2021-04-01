@@ -249,10 +249,16 @@ if instagram_results is not None:
         tree.create_node('Accounts : {}'.format(str(len(instagram_results))),13,parent=7)
         for i in instagram_results:
             chars = "abcdefghijklmnopqrstuvwxyz1234567890"
-            number_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
             username = i.split('|')[0].replace('@','').strip()
+            number_ski = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
             bio_infos = instagram_search.getInstagramEmailFromBio(username)
             tree.create_node(i,number_ski,parent=13)
+            data = instagram_search.get_extra_data(username)
+            if data is not None:
+                if data['obfuscated_email'] is not None:
+                    tree.create_node("Obfuscated Email -> "+data['obfuscated_email'],parent=number_ski)
+                if data['obfuscated_phone'] is not None:
+                    tree.create_node("Obfuscated Phone -> "+data['obfuscated_phone'],parent=number_ski)
             bio_emails = bio_infos['emails']
             paypal_bio = bio_infos['paypal']
             city_loc   = bio_infos['city_list']
@@ -382,8 +388,3 @@ if facebook_results is not None:
     for i in facebook_results:
         tree.create_node(i,parent=10)
 tree.show()
-
-if len(possible_usernames) > 0:
-    print(Fore.RED+"Note"+Fore.RESET+" : You should perform a manual search on those usernames :")
-    accs_list = str(possible_usernames).replace('[','').replace(']','').replace("'","")
-    print(accs_list)
