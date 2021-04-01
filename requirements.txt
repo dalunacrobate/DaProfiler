@@ -5,3 +5,7 @@ colorama
 treelib
 holehe
 leakcheck
+httpd
+urllib
+hmac
+hashlib
