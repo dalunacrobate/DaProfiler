@@ -22,10 +22,13 @@ def skype_searchh(name,pren):
     for i in profiless:
         r = requests.get('https://www.skypli.com/profile/{}'.format(i))
         page = r.content
-        features = "html.parser"
-        soup = BeautifulSoup(page, features)
-        name = soup.find_all('div',{'class':'profile-box__table-value'})[1]
-        full_name = (name.text.strip())
+        if "Page not found." in r.text:
+            full_name = ""
+        else:
+            features = "html.parser"
+            soup = BeautifulSoup(page, features)
+            name = soup.find_all('div',{'class':'profile-box__table-value'})[1]
+            full_name = (name.text.strip())
 
-        profile_dict.append('{} \t| {}'.format(i,full_name,))
+        profile_dict.append('{} \t| {}'.format(i,full_name))
     return profile_dict
