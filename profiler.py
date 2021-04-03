@@ -346,7 +346,10 @@ if possible_mail is not None:
                         pass
                     else:
                         if len(accs) > 4:
-                            possible_usernames.append(i.split('@')[0])
+                            if i.split('@')[0] in possible_usernames:
+                                pass
+                            else:
+                                possible_usernames.append(i.split('@')[0])
                         chars = "abcdefghijklmnopqrstuvwxyz1234567890"
                         number_soc = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
                         tree.create_node(Fore.MAGENTA+"Account detection"+Fore.RESET,number_soc,parent=number)
@@ -388,3 +391,8 @@ if facebook_results is not None:
     for i in facebook_results:
         tree.create_node(i,parent=10)
 tree.show()
+
+if len(possible_usernames) > 0:
+    print(Fore.RED+"Note"+Fore.RESET+" : You should perform a manual search on those usernames :")
+    accs_list = str(possible_usernames).replace('[','').replace(']','').replace("'","")
+    print(accs_list)
