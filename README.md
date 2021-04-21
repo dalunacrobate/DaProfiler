@@ -60,7 +60,7 @@ Add your premium api keys :
 + Go to [modules\api_modules](https://github.com/dalunacrobate/DaProfiler/tree/main/modules/api_modules) then open your API module (ex Leakcheck), replace "YOUR_KEY" to your key, save and quit your text editor.
 
 ##  📝 Contact
-Mail : _daluna_pro@protonmail.ch_.
+Mail : _daluna_pro@protonmail.ch_. <br>
 Discord : `Dalunacrobate#6166`
 
 
