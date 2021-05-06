@@ -15,7 +15,6 @@ from modules  import facebook_search
 from modules  import mail_gen
 from modules  import scylla_sh
 from modules  import mail_check
-from modules  import holehe_module
 
 #from modules  import emailrep_io
 
@@ -148,13 +147,9 @@ tree.create_node(f"{pren} {name} {email}", 1)
 if email_value == True:
     tree.create_node(email,15651145457841784,parent=1)
     logging.terminal_loggin(log,text=" - Searching for passwords via Scylla.soon target : {}\n".format(email))
-    email_pass = scylla_sh.scylla_search(email=email)
     logging.terminal_loggin(log,text=" - Searching for passwords via LeakCheck.net API on target : {}\n".format(email))
     leakcheck_results = leakcheck_net.leak_check_api(mail=email)
     try:
-        accs = holehe_module.social_scan(email=email)
-        tree.create_node(Fore.MAGENTA+"Account Detection"+Fore.RESET,4594897841417,parent=15651145457841784)
-        tree.create_node(accs,parent=4594897841417)
         if leakcheck_results is not None:
             tree.create_node(Fore.RED+"Passwords"+Fore.RESET+" : "+email,1296187151897415478411585,parent=15651145457841784)
             for i in leakcheck_results:
@@ -163,14 +158,6 @@ if email_value == True:
                 tree.create_node(i['leak_name'],number_sk,parent=1296187151897415478411585)
                 tree.create_node('Creditentials : {}'.format(i['password']),parent=number_sk)
                 tree.create_node('Date : {}'.format(i['leak_date']),parent=number_sk)
-        if len(email_pass) > 0:
-            tree.create_node(Fore.RED+"Scylla.so"+Fore.RESET+" : "+email,49849489481858,parent=15651145457841784)
-            for i in email_pass:
-                chars = "abcdefghijklmnopqrstuvwxyz1234567890"
-                number_sk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
-                tree.create_node('Scylla.sh',number_sk,parent=49849489481858)
-                tree.create_node('Database : '+i['Name'],parent=number_sk)
-                tree.create_node('Password : '+i['Password'],parent=number_sk)
     except TypeError:
         pass
 if pagesblanche is not None:
@@ -340,20 +327,6 @@ if possible_mail is not None:
                     number = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
                     no_doubles.append(i)
                     tree.create_node(i,number,parent=142)
-                    # GETTING SITES WHERE EMAIL LOGGED IN FROM HOLEHE -> \modules\holehe_module.py
-                    accs = holehe_module.social_scan(email=i)
-                    if accs == "Accounts found : ":
-                        pass
-                    else:
-                        if len(accs) > 4:
-                            if i.split('@')[0] in possible_usernames:
-                                pass
-                            else:
-                                possible_usernames.append(i.split('@')[0])
-                        chars = "abcdefghijklmnopqrstuvwxyz1234567890"
-                        number_soc = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
-                        tree.create_node(Fore.MAGENTA+"Account detection"+Fore.RESET,number_soc,parent=number)
-                        tree.create_node(accs,parent=number_soc)
                     # GETTING LEAKED PASSWORDS FROM SCYLLA.SH -> \modules\scylla_sh.py
                     scylla_results = scylla_sh.scylla_search(email=i)
                     if scylla_results is not None:
