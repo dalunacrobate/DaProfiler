@@ -1,18 +1,27 @@
-import ScrapeSearchEngine
-from ScrapeSearchEngine.SearchEngine import *
+import requests,bs4
+from bs4 import BeautifulSoup
 
 def death_search(name,pren):
-    search = ("site:dansnoscoeurs.fr \"{} {}\"".format(name,pren))
     try:
-        googleText, googleLink = Google(search=search, userAgent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.96 Safari/537.36")
-        googleLinks = googleLink[0:5]
-        final_links = []
-        for i in googleLinks:
-            if "https://www.dansnoscoeurs.fr/" in i and "/avis" in i:
-                final_links.append(i)
-        if len(final_links) == 0:
+        url = "https://www.avis-de-deces.net/avis-de-deces/?nomprenomdefunt={}".format(name)
+        r = requests.get(url)
+        page = r.content
+        features = "html.parser"
+        soup = BeautifulSoup(page, features)
+
+        names   = soup.find_all('h2')
+        villes  = soup.find_all('span',{'class':'ville'})
+
+        profile_list = []
+
+        for i in range(len(names)):
+            name = names[i].text.strip()
+            loc  = villes[i].text.strip()
+            profile_list.append({'Name':name,'Loc':loc.replace('- ','')})
+
+        if len(profile_list) == 0:
             return None
         else:
-            return final_links
+            return profile_list
     except:
         return None
