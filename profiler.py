@@ -50,6 +50,8 @@ possible_usernames = []
 
 try:
     if pren and name is not None:
+        logging.terminal_loggin(log,text=("Searching for CopainsDavant accounts ...\n"))
+        copainsdavant_results = copainsdavant_search.copains_davant(name=name,pren=pren)
         logging.terminal_loggin(log,text=("Searching for Facebook accounts ...     \n"))
         facebook_results = facebook_search.facebook_search(name=name,pren=pren)
         logging.terminal_loggin(log,text=("Searching for Twitter accounts ...      \n"))
@@ -63,8 +65,6 @@ try:
             bfmtv_results = None
         logging.terminal_loggin(log,text=("Searching for instagram accounts ...    \n"))
         instagram_results = instagram_search.ig_search(name=name,pren=pren)
-        logging.terminal_loggin(log,text=("Searching for CopainsDavant accounts ...\n"))
-        copainsdavant_results = copainsdavant_search.copains_davant(name=name,pren=pren)
         logging.terminal_loggin(log,text=("Searching for Skype accounts ...        \n"))
         skype_results = skype_search.skype_searchh(name=name,pren=pren)
         logging.terminal_loggin(log,text=("Searching for Phones and Adresses ...   \n"))
@@ -160,6 +160,11 @@ if email_value == True:
                 tree.create_node('Date : {}'.format(i['leak_date']),parent=number_sk)
     except TypeError:
         pass
+if avis_deces_results is not None:
+    tree.create_node("Death Records",41518181871541514778,parent=1)
+    for i in avis_deces_results[:5]:
+        tree.create_node('{}\t| {}'.format(i['Name'],i['Loc'][1:]),parent=41518181871541514778)
+
 if pagesblanche is not None:
     full_name = pagesblanche['Name']
     adress = pagesblanche['Adress']
@@ -309,12 +314,6 @@ if instagram_results is not None:
                     number_skkk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
                     number_skk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
                     tree.create_node('Email from bio -> '+Fore.CYAN+i+Fore.RESET,number_skkk,parent=number_ski)
-                    accs = holehe_module.social_scan(email=email)
-                    if len(accs) != 0:
-                        chars = "abcdefghijklmnopqrstuvwxyz1234567890"
-                        number_sk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
-                        tree.create_node(Fore.MAGENTA+"Account Detection"+Fore.RESET,number_sk,parent=number_skkk)
-                        tree.create_node(accs,parent=number_sk)
 if possible_mail is not None:
     if len(possible_mail) != 0 or len(skype2mail) != 0:
         tree.create_node(Fore.RED+'Emails extracted'+Fore.RESET,146,parent=1)
