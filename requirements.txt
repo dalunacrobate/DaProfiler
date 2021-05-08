@@ -4,6 +4,4 @@ scrape-search-engine
 colorama
 treelib
 leakcheck
-urllib
 hmac
-hashlib
