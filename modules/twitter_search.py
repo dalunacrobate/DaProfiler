@@ -1,19 +1,31 @@
-import ScrapeSearchEngine
-from ScrapeSearchEngine.SearchEngine import *
+import requests, bs4
+from bs4 import BeautifulSoup
+
+"""
+La source utilisée ne retourne pas à 100% les profils trouvés, malheuresement c'est la seule que j'ai trouvé pour rechercher des profils sur twitter;
+Pull Request si tu as une suggestion, celle-ci serra appréciée.
+"""
 
 def twitter_search(name,pren):
-    search = ("site:twitter.com \"{} {}\"".format(name,pren))
     try:
-        googleText, googleLink = Google(search=search, userAgent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.96 Safari/537.36")
-        googleLinks = googleText[0:5]
+        url = "https://tweet.lambda.dance/search?f=users&q={}+{}".format(pren,name)
+
+        r = requests.get(url)
+        page = r.content
+        features = "html.parser"
+        soup = BeautifulSoup(page, features)
+
+        full_name = soup.find_all('div',{'class':'tweet-name-row'})
+        username  = soup.find_all('a',{'class':'username'})
+
         final_accounts = []
-        for i in googleText:
-            if "@" in i and name.lower() in i and pren.lower() in i:
-                twitter_acc = ("@"+i.split('@')[1].split(')')[0])
-                if twitter_acc in final_accounts:
-                    pass
-                else:
-                    final_accounts.append(twitter_acc)
+
+        for i in range(len(full_name)):
+            usernamee = username[i].text
+            fullname  = full_name[i].text
+            final_accounts.append(
+                '{}\t|{}'.format(usernamee,fullname)
+            )
         if len(final_accounts) == 0:
             return None
         else:
