@@ -46,7 +46,7 @@ optional arguments:
 ```
 
 ## 📷 Demo
-![alt text](https://i.ibb.co/Qk7ynhk/k.png)
+![alt text](https://i.ibb.co/K6cF3NH/Capturee.png)
 
 ## 🛠 Api
 | Source | Service type | Subscription | Key in code |
