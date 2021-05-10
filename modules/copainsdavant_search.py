@@ -35,6 +35,17 @@ def copains_davant(name,pren):
             naissance = str(soup.find('abbr',{'class':'bday'}).text.strip())
             name_full = str(soup.find('a',{'class':'url'}).text.strip())
             photo = str(soup.find('img',{'itemprop':'logo'})).split('itemprop="logo" src="')[1].split('"')[0]
+            locations = soup.find_all('span',{'class':'copains_career__city jCcareerTown'})
+
+            location_list = []
+
+            for i in locations:
+                location_name = i.text.strip()
+                if location_name not in location_list:
+                    location_list.append(location_name)
+
+            if len(location_list) == 0:
+                location_list = None
             if "/anonymousL.jpg" in photo:
                 photo = "None"
             card = soup.find('section',{'id':'vcard'}).text.strip()
@@ -49,8 +60,8 @@ def copains_davant(name,pren):
                 job = " ".join(job.split()).split(' ')[0]
             if "Enfant" in card:
                 nb_kids = card.split("Enfants :")[1].split(" ")[0]
-            text = {'url_full':'http://copainsdavant.linternaute.com{}'.format(profil_url),'familial_situation':str(situation_familiale).replace('Enfants','').replace('Aucune','').strip(),'full_name':str(name_full),'born':str(naissance),'localisation':str(localisation),
-                "nb_enfants":str(nb_kids).strip(),"Job":str(job).strip(),'pdp':str(photo)         
+            text = {'Other_locations':location_list,'url_full':'http://copainsdavant.linternaute.com{}'.format(profil_url),'familial_situation':str(situation_familiale).replace('Enfants','').replace('Aucune','').strip(),'full_name':str(name_full),'born':str(naissance),'localisation':str(localisation),
+                "nb_enfants":str(nb_kids).strip(),"Job":str(job).strip(),'pdp':str(photo),    
             }
             return text
         except AttributeError:
