@@ -1,22 +1,17 @@
 import requests, bs4
 from bs4 import BeautifulSoup
 
-"""
-La source utilisée ne retourne pas à 100% les profils trouvés, malheuresement c'est la seule que j'ai trouvé pour rechercher des profils sur twitter;
-Pull Request si tu as une suggestion, celle-ci serra appréciée.
-"""
-
 def twitter_search(name,pren):
     try:
-        url = "https://tweet.lambda.dance/search?f=users&q={}+{}".format(pren,name)
+        url = "https://www.twuko.com/search?term={}+{}&type=user".format(pren,name)
 
         r = requests.get(url)
         page = r.content
         features = "html.parser"
         soup = BeautifulSoup(page, features)
 
-        full_name = soup.find_all('div',{'class':'tweet-name-row'})
-        username  = soup.find_all('a',{'class':'username'})
+        full_name = soup.find_all('div',{'class':'flex items-center'})
+        username  = soup.find_all('a',{'class':'text-sm'})
 
         final_accounts = []
 
