@@ -188,6 +188,13 @@ if copainsdavant_results is not None:
         tree.create_node('Location : {}'.format(copainsdavant_results['localisation']),99,parent=3)
         tree.create_node('Url          : {}'.format(copainsdavant_results['url_full']),111,parent=3)
         write('Copains d\'avant : ',[str('Full Name : '+copainsdavant_results['full_name']),str('Born Date : '+copainsdavant_results['born']),str('Location : '+copainsdavant_results['localisation']),str('URL : '+copainsdavant_results['url_full'])])
+        if copainsdavant_results['Other_locations'] is not None:
+            chars = "abcdefghijklmnopqrstuvwxyz1234567890"
+            number_sk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
+            tree.create_node('Other Locations',number_sk,parent=3)
+            for i in copainsdavant_results['Other_locations']:
+                if i != copainsdavant_results['localisation']:
+                    tree.create_node(i,parent=number_sk)
         if copainsdavant_results['pdp'] != "None":
             try:
                 tree.create_node('Profile Picture : {}'.format(copainsdavant_results['pdp']),151515454545,parent=3)
