@@ -36,13 +36,21 @@ def copains_davant(name,pren):
             name_full = str(soup.find('a',{'class':'url'}).text.strip())
             photo = str(soup.find('img',{'itemprop':'logo'})).split('itemprop="logo" src="')[1].split('"')[0]
             locations = soup.find_all('span',{'class':'copains_career__city jCcareerTown'})
+            dates     = soup.find_all('span',{'class':'copains_career__date jCareerDate'})
 
             location_list = []
 
-            for i in locations:
-                location_name = i.text.strip()
-                if location_name not in location_list:
-                    location_list.append(location_name)
+            for i in range(len(locations)):
+                locat = locations[i].text.strip()
+                dat   = dates[i].text.replace('maintenant','Now').strip()
+                data = dat+" | "+locat
+                if data not in location_list:
+                    temp_list = []
+                    for i in location_list:
+                        if locat in i:
+                            temp_list.append('.')
+                    if len(temp_list) == 0:
+                        location_list.append(data)
 
             if len(location_list) == 0:
                 location_list = None
