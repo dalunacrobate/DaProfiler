@@ -1,4 +1,5 @@
-import threading, time, colorama, treelib, random, sys, os, argparse
+from json import decoder
+import threading, time, colorama, treelib, random, sys, os, argparse, json
 
 from colorama import Fore, init, Back, Style
 init(convert=True)
@@ -16,12 +17,15 @@ from modules  import mail_gen
 from modules  import scylla_sh
 from modules  import mail_check
 
-#from modules  import emailrep_io
-
 from modules.api_modules import leakcheck_net
 from modules.visual      import logging
 
 banner = False 
+
+# Opening json report template
+data_file = open('modules/report.json','r')
+data_export = json.load(data_file)
+data_file.close()
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-n", "--name", help="Victim name")
@@ -73,7 +77,6 @@ try:
         possible_mail = mail_gen.check(name=name,pren=pren)
         logging.terminal_loggin(log,text=("Searching for Mail from Skype ...       \n"))
         skype2mail = mail_gen.skype2email(name=name,pren=pren)
-        logging.terminal_loggin(log,text=("Searching Leaked Passwords and social networks on emails ...       \n"))
     elif len(pren) and len(name) == 0:
         facebook_results = None
         twitter_results = None
@@ -144,6 +147,8 @@ def write(typee,objectt):
 
 tree = Tree()
 tree.create_node(f"{pren} {name} {email}", 1)
+data_export['Name'] = pren
+data_export['LastName'] = name
 if email_value == True:
     tree.create_node(email,15651145457841784,parent=1)
     logging.terminal_loggin(log,text=" - Searching for passwords via Scylla.soon target : {}\n".format(email))
@@ -164,11 +169,18 @@ if avis_deces_results is not None:
     tree.create_node("Death Records",41518181871541514778,parent=1)
     for i in avis_deces_results[:5]:
         tree.create_node('{}\t| {}'.format(i['Name'],i['Loc'][1:]),parent=41518181871541514778)
-
+    data_export['DeathRecords']['Exists'] = True
+    data_export['DeathRecords']['Records'] = avis_deces_results[:5]
 if pagesblanche is not None:
     full_name = pagesblanche['Name']
     adress = pagesblanche['Adress']
     phone = pagesblanche['Phone']
+
+    data_export['AdressPhone']['Exists'] = True    
+    data_export['AdressPhone']['FullName'] = full_name
+    data_export['AdressPhone']['Phone'] = phone
+    data_export['AdressPhone']['Adress'] = adress
+
     write("Adress - Phone : ",[str('Full Name : '+full_name),str('Adress : '+adress),str('Phone : '+phone)])
     tree.create_node(Fore.YELLOW+"Adress - Phone"+Fore.RESET,2,parent=1)
     tree.create_node("Full Name : {}".format(full_name),22,parent=2)
@@ -178,15 +190,23 @@ if pagesblanche is not None:
         tree.create_node('Carrier : {}'.format(pagesblanche['carrier']),894,parent=44)
     if pagesblanche['Loc_phone'] is not None:
         tree.create_node('Localisation : {}'.format(pagesblanche['Loc_phone']),55,parent=44)
+        data_export['AdressPhone']['PhoneLocation'] = pagesblanche['Loc_phone']
     if pagesblanche['Type_tel'] is not None:
         tree.create_node('Type  : {}'.format(pagesblanche['Type_tel']),66,parent=44)
 if copainsdavant_results is not None:
+    data_export['CopainsDavant']['Exists'] = True
     try:
         tree.create_node(Fore.RED+"Copains d'avant"+Fore.RESET,3,parent=1)
         tree.create_node('Full Name    : {}'.format(copainsdavant_results['full_name']),77,parent=3)
         tree.create_node('Born Date    : {}'.format(copainsdavant_results['born']),88,parent=3)
         tree.create_node('Location : {}'.format(copainsdavant_results['localisation']),99,parent=3)
         tree.create_node('Url          : {}'.format(copainsdavant_results['url_full']),111,parent=3)
+        
+        data_export['CopainsDavant']['FullName']   = copainsdavant_results['full_name']
+        data_export['CopainsDavant']['BornDate']   = copainsdavant_results['born']
+        data_export['CopainsDavant']['ProfileUrl'] = copainsdavant_results['url_full'].replace('https://','')
+        data_export['CopainsDavant']['Location']   = copainsdavant_results['localisation']
+
         write('Copains d\'avant : ',[str('Full Name : '+copainsdavant_results['full_name']),str('Born Date : '+copainsdavant_results['born']),str('Location : '+copainsdavant_results['localisation']),str('URL : '+copainsdavant_results['url_full'])])
         if copainsdavant_results['Other_locations'] is not None:
             chars = "abcdefghijklmnopqrstuvwxyz1234567890"
@@ -195,29 +215,43 @@ if copainsdavant_results is not None:
             for i in copainsdavant_results['Other_locations']:
                 if i != copainsdavant_results['localisation']:
                     tree.create_node(i,parent=number_sk)
+            data_export['CopainsDavant']['OtherLocations'] = copainsdavant_results['Other_locations']
         if copainsdavant_results['pdp'] != "None":
             try:
                 tree.create_node('Profile Picture : {}'.format(copainsdavant_results['pdp']),151515454545,parent=3)
+                data_export['CopainsDavant']['ProfilePicUrl'] = copainsdavant_results['pdp'].replace('https://','')
             except:
                 pass
         if copainsdavant_results['Job'] != "None":
             try:
                 tree.create_node('Job : {}'.format(copainsdavant_results['Job']),154156132489411,parent=3)
+                data_export['CopainsDavant']['Job'] = copainsdavant_results['Job']
             except:
                 pass
         if copainsdavant_results['familial_situation'] != "None":
             try:
                 tree.create_node('Familial Situation : {}'.format(copainsdavant_results['familial_situation'].strip()),44984154114515,parent=3)
+                data_export['CopainsDavant']['FSituation'] = copainsdavant_results['familial_situation']
             except:
                 pass
         if copainsdavant_results['nb_enfants'] != "None":
             try:
                 tree.create_node('Number of kids : {}'.format(copainsdavant_results['nb_enfants']),1654518948741,parent=3)
+                data_export['CopainsDavant']['NbKids'] = copainsdavant_results['nb_enfants']
             except:
                 pass
     except TypeError:
         pass
 if bfmtv_results is not None:
+    
+    data_export['Work']['Exists'] = True
+    data_export['Work']['FullName'] = bfmtv_results['full_name']
+    data_export['Work']['BornDate'] = bfmtv_results['naissance']
+    data_export['Work']['Company']  = bfmtv_results['company']
+    data_export['Work']['Function'] = bfmtv_results['fonction']
+    data_export['Work']['Warrant']  = bfmtv_results['mandats']
+    data_export['Work']['Link']     = bfmtv_results['link'].replace('https://','')
+
     write('Work - Job : ',[str('Adress : '+bfmtv_results['addr']),str('Company : '+bfmtv_results['company']),str('Full Name : '+bfmtv_results['full_name']),str('Function : '+bfmtv_results['fonction']),str('Warrant : '+bfmtv_results['mandats']),str('URL : '+bfmtv_results['link'])])
     tree.create_node(Fore.BLUE+"Work - Job"+Fore.RESET,4,parent=1)
     tree.create_node('Adress    : {}'.format(bfmtv_results['addr']),888,parent=4)
@@ -228,11 +262,15 @@ if bfmtv_results is not None:
     tree.create_node('Function  : {}'.format(bfmtv_results['fonction']),444,parent=4)
     tree.create_node('Warrant   : {}'.format(bfmtv_results['mandats']),555,parent=4)
 if twitter_results is not None:
+    data_export['Twitter']['Exists'] = True
+    data_export['Twitter']['Accounts'] = twitter_results
     write(f'({str(len(twitter_results))}) Twitter : ',twitter_results)
     tree.create_node(Fore.CYAN+"Twitter"+Fore.RESET,5,parent=1)
     for i in twitter_results:
         tree.create_node(i,parent=5)
 if skype_results is not None:
+    data_export['Skype']['Exists'] = True
+    data_export['Skype']['AccountList'] = skype_results
     write(f'({str(len(skype_results))}) Skype : ',skype_results)
     tree.create_node(Fore.CYAN+"Skype"+Fore.RESET,6,parent=1)
     tree.create_node("Accounts : {}".format(str(len(skype_results))),12,parent=6)
@@ -244,8 +282,10 @@ if instagram_results is not None:
     if len(instagram_results) ==  0:
         pass
     else:
+        data_export['Instagram']['Exists'] = True
         tree.create_node(Fore.MAGENTA+"Instagram"+Fore.RESET,7,parent=1)
         tree.create_node('Accounts : {}'.format(str(len(instagram_results))),13,parent=7)
+        acc_json_list = []
         for i in instagram_results:
             chars = "abcdefghijklmnopqrstuvwxyz1234567890"
             username = i.split('|')[0].replace('@','').strip()
@@ -255,9 +295,17 @@ if instagram_results is not None:
             data = instagram_search.get_extra_data(username)
             if data is not None:
                 if data['obfuscated_email'] is not None:
-                    tree.create_node("Obfuscated Email -> "+data['obfuscated_email'],parent=number_ski)
+                    ob_mail = data['obfuscated_email']
+                    tree.create_node("Obfuscated Email -> "+ob_mail,parent=number_ski)
+                else:
+                    ob_mail = False
                 if data['obfuscated_phone'] is not None:
-                    tree.create_node("Obfuscated Phone -> "+data['obfuscated_phone'],parent=number_ski)
+                    ob_phone = data['obfuscated_phone']
+                    tree.create_node("Obfuscated Phone -> "+ob_phone,parent=number_ski)
+                else:
+                    ob_phone = False
+            acc_json_list.append({"Username":username,'obfuscated_phone':ob_phone,'obfuscated_email':ob_mail})
+
             bio_emails = bio_infos['emails']
             paypal_bio = bio_infos['paypal']
             city_loc   = bio_infos['city_list']
@@ -321,6 +369,7 @@ if instagram_results is not None:
                     number_skkk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
                     number_skk = random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)+random.choice(chars)
                     tree.create_node('Email from bio -> '+Fore.CYAN+i+Fore.RESET,number_skkk,parent=number_ski)
+        data_export['Instagram']['AccountList'] = acc_json_list
 if possible_mail is not None:
     if len(possible_mail) != 0 or len(skype2mail) != 0:
         tree.create_node(Fore.RED+'Emails extracted'+Fore.RESET,146,parent=1)
@@ -355,23 +404,34 @@ if possible_mail is not None:
                             tree.create_node('Password  : {}'.format(password),parent=number_pass)
                             tree.create_node('Leak Name : {}'.format(leak_name),parent=number_pass)
                             tree.create_node('Leak Date : {}'.format(leak_date),parent=number_pass)
+            data_export['Emails']['HighProbEmails'] = no_doubles
             write(f'({str(len(no_doubles))}) High Probability Emails : ',no_doubles)
         nb= str((len(possible_mail)))
         if int(nb) != 0:
             tree.create_node("("+Fore.YELLOW+nb+Fore.RESET+") "+Fore.YELLOW+"Possible Mailbox"+Fore.RESET,8,parent=146)
             write(f'({str(len(possible_mail))}) Possible Mailbox : ',possible_mail)
+            data_export['Emails']['PermutatedMailbox'] = possible_mail
             for i in possible_mail:
                 tree.create_node(i,parent=8)
 if facebook_results is not None:
+    data_export['Facebook']['Exists'] = True
     write(f'({str(len(facebook_results))}) Facebook : ',facebook_results)
     nb = str(len(facebook_results))
     tree.create_node(Fore.BLUE+"Facebook"+Fore.RESET,9,parent=1)
     tree.create_node('Accounts : {}'.format(nb),10,parent=9)
+    data_export['Facebook']['AccountList'] = facebook_results
     for i in facebook_results:
         tree.create_node(i,parent=10)
 tree.show()
 
-if len(possible_usernames) > 0:
-    print(Fore.RED+"Note"+Fore.RESET+" : You should perform a manual search on those usernames :")
-    accs_list = str(possible_usernames).replace('[','').replace(']','').replace("'","")
-    print(accs_list)
+data_file.close()
+
+try:
+    with open(f'Reports/{name}_{pren}.json','w',encoding='utf8') as f:
+        json.dump(data_export,f,indent=4,ensure_ascii=False)
+        f.close()
+except FileNotFoundError:
+    os.mkdir('Reports')
+    with open(f'Reports/{name}_{pren}.json','w',encoding='utf8') as f:
+        json.dump(data_export,f,indent=4,ensure_ascii=False)
+        f.close()
