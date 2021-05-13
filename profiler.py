@@ -448,10 +448,23 @@ tree.show()
 
 data_export['UI']['Pie']['PersonnalLife']   = len(personnal_life)
 data_export['UI']['Pie']['SocialMedias']    = len(social_medias)
-data_export['UI']['Bar']['TwitterFounds']   = len(twitter_results)
-data_export['UI']['Bar']['InstagramFounds'] = len(instagram_results)
-data_export['UI']['Bar']['FacebookFounds']  = len(facebook_results)
-data_export['UI']['Bar']['SkypeFounds']     = len(skype_results)
+try:
+    data_export['UI']['Bar']['TwitterFounds']   = len(twitter_results)
+except TypeError:
+    data_export['UI']['Bar']['TwitterFounds']   = 0
+try:
+    data_export['UI']['Bar']['InstagramFounds'] = len(instagram_results)
+except TypeError:
+    data_export['UI']['Bar']['InstagramFounds'] = 0
+try:
+    data_export['UI']['Bar']['FacebookFounds']  = len(facebook_results)
+except TypeError:
+    data_export['UI']['Bar']['FacebookFounds']  = 0
+try:
+    data_export['UI']['Bar']['SkypeFounds']     = len(skype_results)
+except TypeError:
+    data_export['UI']['Bar']['SkypeFounds']     = 0
+    
 data_file.close()
 
 try:
@@ -463,3 +476,5 @@ except FileNotFoundError:
     with open(f'Reports/{folder_name}/{name}_{pren}.json','w',encoding='utf8') as f:
         json.dump(data_export,f,indent=4,ensure_ascii=False)
         f.close()
+
+
