@@ -1,5 +1,4 @@
 requests
-matplotlib
 bs4
 colorama
 treelib
