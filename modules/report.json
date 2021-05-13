@@ -2,6 +2,19 @@
     "Name":false,
     "LastName":false,
 
+    "UI":{
+        "Pie":{
+            "PersonnalLife":false,
+            "SocialMedias":false
+        },
+        "Bar":{
+            "TwitterFounds":false,
+            "InstagramFounds":false,
+            "FacebookFounds":false,
+            "SkypeFounds":false
+        }
+    },
+
     "AdressPhone":{
         "Exists":false,
         "FullName":false,
