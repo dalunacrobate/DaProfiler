@@ -21,9 +21,6 @@ from modules  import mail_check
 from modules.api_modules import leakcheck_net
 from modules.visual      import logging
 
-import matplotlib.pyplot as plt
-import numpy             as np
-
 banner = False 
 
 # Opening json report template
@@ -71,21 +68,6 @@ except FileExistsError:
 personnal_life = []
 social_medias  = []
 
-def create_pie(social_medias,personnal_life):
-    labels = ['Social Medias','Personnal Life']
-    values = [len(social_medias),len(personnal_life)]
-    colors = ["#90EE90", "#ADD8E6"]
-    plt.pie(values, labels=labels, colors=colors,autopct='%1.2f%%')
-    plt.savefig('Reports/{}/pie.png'.format(folder_name))
-    plt.close()
-def create_bar(twitter,instagram,facebook,skype):
-    x = np.array(["Twitter", "Instagram", "Facebook", "Skype"])
-    y = np.array([twitter, instagram, facebook, skype])
-    plt.bar(x,y,color="#ADD8E6")
-    plt.yticks([])
-    plt.savefig('Reports/{}/bar.png'.format(folder_name))
-    plt.close()
-
 try:
     if pren and name is not None:
         logging.terminal_loggin(log,text=("Searching for CopainsDavant accounts ...\n"))
@@ -111,7 +93,6 @@ try:
         possible_mail = mail_gen.check(name=name,pren=pren)
         logging.terminal_loggin(log,text=("Searching for Mail from Skype ...       \n"))
         skype2mail = mail_gen.skype2email(name=name,pren=pren)
-        create_bar(twitter=len(twitter_results),instagram=len(instagram_results),facebook=len(facebook_results),skype=len(skype_results))
     elif len(pren) and len(name) == 0:
         facebook_results = None
         twitter_results = None
@@ -465,9 +446,13 @@ if facebook_results is not None:
         tree.create_node(i,parent=10)
 tree.show()
 
+data_export['UI']['Pie']['PersonnalLife']   = len(personnal_life)
+data_export['UI']['Pie']['SocialMedias']    = len(social_medias)
+data_export['UI']['Bar']['TwitterFounds']   = len(twitter_results)
+data_export['UI']['Bar']['InstagramFounds'] = len(instagram_results)
+data_export['UI']['Bar']['FacebookFounds']  = len(facebook_results)
+data_export['UI']['Bar']['SkypeFounds']     = len(skype_results)
 data_file.close()
-
-create_pie(social_medias,personnal_life)
 
 try:
     with open(f'Reports/{folder_name}/{name}_{pren}.json','w',encoding='utf8') as f:
