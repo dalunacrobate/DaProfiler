@@ -1,6 +1,7 @@
 from json import decoder
 import threading, time, colorama, treelib, random, sys, os, argparse, json
 
+
 from colorama import Fore, init, Back, Style
 init(convert=True)
 from treelib  import Node, Tree
@@ -19,6 +20,9 @@ from modules  import mail_check
 
 from modules.api_modules import leakcheck_net
 from modules.visual      import logging
+
+import matplotlib.pyplot as plt
+import numpy             as np
 
 banner = False 
 
@@ -52,6 +56,36 @@ print("\r")
 
 possible_usernames = []
 
+folder_name = "{}_{}".format(pren,name)
+
+try:
+    os.mkdir('Reports')
+except FileExistsError:
+    pass
+
+try:
+    os.mkdir('Reports/{}'.format(folder_name))
+except FileExistsError:
+    pass
+
+personnal_life = []
+social_medias  = []
+
+def create_pie(social_medias,personnal_life):
+    labels = ['Social Medias','Personnal Life']
+    values = [len(social_medias),len(personnal_life)]
+    colors = ["#90EE90", "#ADD8E6"]
+    plt.pie(values, labels=labels, colors=colors,autopct='%1.2f%%')
+    plt.savefig('Reports/{}/pie.png'.format(folder_name))
+    plt.close()
+def create_bar(twitter,instagram,facebook,skype):
+    x = np.array(["Twitter", "Instagram", "Facebook", "Skype"])
+    y = np.array([twitter, instagram, facebook, skype])
+    plt.bar(x,y,color="#ADD8E6")
+    plt.yticks([])
+    plt.savefig('Reports/{}/bar.png'.format(folder_name))
+    plt.close()
+
 try:
     if pren and name is not None:
         logging.terminal_loggin(log,text=("Searching for CopainsDavant accounts ...\n"))
@@ -77,6 +111,7 @@ try:
         possible_mail = mail_gen.check(name=name,pren=pren)
         logging.terminal_loggin(log,text=("Searching for Mail from Skype ...       \n"))
         skype2mail = mail_gen.skype2email(name=name,pren=pren)
+        create_bar(twitter=len(twitter_results),instagram=len(instagram_results),facebook=len(facebook_results),skype=len(skype_results))
     elif len(pren) and len(name) == 0:
         facebook_results = None
         twitter_results = None
@@ -172,6 +207,7 @@ if avis_deces_results is not None:
     data_export['DeathRecords']['Exists'] = True
     data_export['DeathRecords']['Records'] = avis_deces_results[:5]
 if pagesblanche is not None:
+    personnal_life.append('.')
     full_name = pagesblanche['Name']
     adress = pagesblanche['Adress']
     phone = pagesblanche['Phone']
@@ -194,6 +230,7 @@ if pagesblanche is not None:
     if pagesblanche['Type_tel'] is not None:
         tree.create_node('Type  : {}'.format(pagesblanche['Type_tel']),66,parent=44)
 if copainsdavant_results is not None:
+    personnal_life.append('.')
     data_export['CopainsDavant']['Exists'] = True
     try:
         tree.create_node(Fore.RED+"Copains d'avant"+Fore.RESET,3,parent=1)
@@ -243,7 +280,7 @@ if copainsdavant_results is not None:
     except TypeError:
         pass
 if bfmtv_results is not None:
-    
+    personnal_life.append('.')
     data_export['Work']['Exists'] = True
     data_export['Work']['FullName'] = bfmtv_results['full_name']
     data_export['Work']['BornDate'] = bfmtv_results['naissance']
@@ -262,6 +299,7 @@ if bfmtv_results is not None:
     tree.create_node('Function  : {}'.format(bfmtv_results['fonction']),444,parent=4)
     tree.create_node('Warrant   : {}'.format(bfmtv_results['mandats']),555,parent=4)
 if twitter_results is not None:
+    social_medias.append('.')
     data_export['Twitter']['Exists'] = True
     data_export['Twitter']['Accounts'] = twitter_results
     write(f'({str(len(twitter_results))}) Twitter : ',twitter_results)
@@ -269,6 +307,7 @@ if twitter_results is not None:
     for i in twitter_results:
         tree.create_node(i,parent=5)
 if skype_results is not None:
+    social_medias.append('.')
     data_export['Skype']['Exists'] = True
     data_export['Skype']['AccountList'] = skype_results
     write(f'({str(len(skype_results))}) Skype : ',skype_results)
@@ -282,6 +321,7 @@ if instagram_results is not None:
     if len(instagram_results) ==  0:
         pass
     else:
+        social_medias.append('.')
         data_export['Instagram']['Exists'] = True
         tree.create_node(Fore.MAGENTA+"Instagram"+Fore.RESET,7,parent=1)
         tree.create_node('Accounts : {}'.format(str(len(instagram_results))),13,parent=7)
@@ -414,6 +454,7 @@ if possible_mail is not None:
             for i in possible_mail:
                 tree.create_node(i,parent=8)
 if facebook_results is not None:
+    social_medias.append('.')
     data_export['Facebook']['Exists'] = True
     write(f'({str(len(facebook_results))}) Facebook : ',facebook_results)
     nb = str(len(facebook_results))
@@ -426,12 +467,14 @@ tree.show()
 
 data_file.close()
 
+create_pie(social_medias,personnal_life)
+
 try:
-    with open(f'Reports/{name}_{pren}.json','w',encoding='utf8') as f:
+    with open(f'Reports/{folder_name}/{name}_{pren}.json','w',encoding='utf8') as f:
         json.dump(data_export,f,indent=4,ensure_ascii=False)
         f.close()
 except FileNotFoundError:
     os.mkdir('Reports')
-    with open(f'Reports/{name}_{pren}.json','w',encoding='utf8') as f:
+    with open(f'Reports/{folder_name}/{name}_{pren}.json','w',encoding='utf8') as f:
         json.dump(data_export,f,indent=4,ensure_ascii=False)
         f.close()
