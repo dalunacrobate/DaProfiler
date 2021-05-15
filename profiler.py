@@ -325,6 +325,9 @@ if instagram_results is not None:
                     tree.create_node("Obfuscated Phone -> "+ob_phone,parent=number_ski)
                 else:
                     ob_phone = False
+            else:
+                ob_phone = False
+                ob_mail  = False
             acc_json_list.append({"Username":username,'obfuscated_phone':ob_phone,'obfuscated_email':ob_mail})
 
             bio_emails = bio_infos['emails']
@@ -476,5 +479,3 @@ except FileNotFoundError:
     with open(f'Reports/{folder_name}/{name}_{pren}.json','w',encoding='utf8') as f:
         json.dump(data_export,f,indent=4,ensure_ascii=False)
         f.close()
-
-
