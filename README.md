@@ -21,12 +21,7 @@ pip install -r requirements.txt
 ```
 ## 💻 Use
 ```bash
-profiler.py -n [NAME] -ln [LAST NAME] -l True -O txt_file.txt
-(Target Name) (Target Last Name) (Enable Terminal Logging) (Output to txt_file.txt)
-
-=====================================================================
-
-usage: profiler.py [-h] [-n NAME] [-l LOGGING] [-ln LASTNAME] [-e EMAIL] [-O OUTPUT]
+usage: profiler.py [-h] [-n NAME] [-l LOGGING] [-ln LASTNAME] [-e EMAIL] [-O OUTPUT] [-W WEBUI]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -39,6 +34,8 @@ optional arguments:
                         Email (Optional)
   -O OUTPUT, --output OUTPUT
                         ( -O output.txt )
+  -W WEBUI, --webui WEBUI
+                        Open HTML report at the end
 ```
 
 ## 📷 Demo
