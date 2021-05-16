@@ -39,8 +39,8 @@ optional arguments:
 ```
 
 ## 📷 Demo
-![alt text](https://i.ibb.co/TgDnhm8/gif.gif)
-![alt text](https://i.ibb.co/YPHwv39/hh.png)
+![Alt Text](https://i.ibb.co/TgDnhm8/gif.gif)<br>
+![](https://i.ibb.co/YPHwv39/hh.png)
 
 ## 🛠 Api
 | Source | Service type | Subscription | Key in code |
