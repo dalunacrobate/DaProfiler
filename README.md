@@ -3,14 +3,10 @@
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html) [![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/dalunacrobate/daprofiler)
 ![](https://visitor-badge.laobi.icu/badge?page_id=dalunacrobate.daprofiler)
 
-**FR** : A but educatif seulement.<br />
 **EN** : For educational purposes only.
 
 ![alt text](https://i.ibb.co/5xhj7pZ/8b9770d14be1d8c3f86d157d32d4044e.png)
 # DaProfiler
-
-**FR** DaProfiler vous permet de créer un profil sur votre **target** basé en France uniquement.
-La particularité de ce programme est sa capacité à retrouver les adresses mails d'une cible via des recherches sur [Skype](https://www.skype.com/) et des essais de combinaison d'adresses mails suivies d'une vérification pour savoir si l'adresse mail existe ou non (Attention aux faux négatifs, les résultats affichés ne concernent pas forcément la cible que vous recherchez si une autre personne porte le meme nom - prénom) . DaProfiler est aussi capable de vérifier les mots d'une bio d'un profil instagram pour en extraire des informations intéressantes tels que : **Adresses mail**,**Profils Paypal.me**,**Age**,**Etablissement scolaire**,**Ville**,**Orientation sexuelle**,**Origine ethnique**,**Religions**,**Hobbies** et plus ...
 
 **EN** DaProfiler allows you to create a profile on your **target** based in France only.
 The particularity of this program is its ability to find the e-mail addresses of a target via searches on [Skype](https://www.skype.com/) and tests of combining e-mail addresses followed by a check to know if the email address exists or not (Beware of false negatives, the results displayed do not necessarily relate to the target you are looking for if another person has the same name - first name). DaProfiler is also able to check the words of a an instagram bio to find interesting information such as : **Email addresses**, **Paypal.me profiles**,**Sexual Orientation**,**City**,**School**,**Age**,**Ethnicity**,**Religions**,**Hobbies** and more ...
