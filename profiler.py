@@ -33,6 +33,7 @@ parser.add_argument('-l','--logging',help="Enable terminal logging (Optional)")
 parser.add_argument('-ln','--lastname',help="Last name of victim")
 parser.add_argument('-e','--email',help="Email (Optional)")
 parser.add_argument('-O','--output',help="( -O output.txt )")
+parser.add_argument('-W','--webui',help='Open HTML report at the end')
 args = parser.parse_args()
 
 name     = (args.lastname)
@@ -40,6 +41,7 @@ pren     = (args.name)
 log      = (args.logging)
 email    = (args.email)
 output   = (args.output)
+web_arg  = (args.webui)
 
 if sys.platform == 'win32':
     os.system('cls')
@@ -479,20 +481,24 @@ except FileNotFoundError:
         json.dump(data_export,f,indent=4,ensure_ascii=False)
         f.close()
 
-url = 'https://cnil.me/api/osint/daprofiler/ui'
-myobj = json.dumps(data_export)
-x = requests.post(url, data = myobj)
-y = json.loads(x.text) 
-print("Website Done")
-f = open("./web/index.html", "w")
-f.write(y['content']["webpage"])
-f.close()
-f = open("./web/cg/data.json", "w")
-f.write(y['content']["arbre"])
-f.close()
-Handler = http.server.SimpleHTTPRequestHandler
+def webui():
+    url = 'https://cnil.me/api/osint/daprofiler/ui'
+    myobj = json.dumps(data_export)
+    x = requests.post(url, data = myobj)
+    y = json.loads(x.text) 
+    print("Website Done")
+    f = open("./web/index.html", "w")
+    f.write(y['content']["webpage"])
+    f.close()
+    f = open("./web/cg/data.json", "w")
+    f.write(y['content']["arbre"])
+    f.close()
+    Handler = http.server.SimpleHTTPRequestHandler
 
-webbrowser.open('http://127.0.0.1:8000/web/', new=2)
-with socketserver.TCPServer(("", 8000), Handler) as httpd:
-    print("serving at port", 8000)
-    httpd.serve_forever()
+    webbrowser.open('http://127.0.0.1:8000/web/', new=2)
+    with socketserver.TCPServer(("", 8000), Handler) as httpd:
+        print("serving at port", 8000)
+        httpd.serve_forever()
+
+if web_arg is not None:
+    webui()
