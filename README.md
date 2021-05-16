@@ -39,6 +39,7 @@ optional arguments:
 ```
 
 ## 📷 Demo
+![alt text](https://i.ibb.co/TgDnhm8/gif.gif)
 ![alt text](https://i.ibb.co/YPHwv39/hh.png)
 
 ## 🛠 Api
