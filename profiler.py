@@ -1,5 +1,5 @@
 from json import decoder
-import threading, time, colorama, treelib, random, sys, os, argparse, json
+import threading, time, colorama, treelib, random, sys, os, argparse, json, requests, http.server, socketserver, webbrowser
 
 
 from colorama import Fore, init, Back, Style
@@ -22,7 +22,6 @@ from modules.api_modules import leakcheck_net
 from modules.visual      import logging
 
 banner = False 
-
 # Opening json report template
 data_file = open('modules/report.json','r')
 data_export = json.load(data_file)
@@ -479,3 +478,21 @@ except FileNotFoundError:
     with open(f'Reports/{folder_name}/{name}_{pren}.json','w',encoding='utf8') as f:
         json.dump(data_export,f,indent=4,ensure_ascii=False)
         f.close()
+
+url = 'https://cnil.me/api/osint/daprofiler/ui'
+myobj = json.dumps(data_export)
+x = requests.post(url, data = myobj)
+y = json.loads(x.text) 
+print("Website Done")
+f = open("./web/index.html", "w")
+f.write(y['content']["webpage"])
+f.close()
+f = open("./web/cg/data.json", "w")
+f.write(y['content']["arbre"])
+f.close()
+Handler = http.server.SimpleHTTPRequestHandler
+
+webbrowser.open('http://127.0.0.1:8000/web/', new=2)
+with socketserver.TCPServer(("", 8000), Handler) as httpd:
+    print("serving at port", 8000)
+    httpd.serve_forever()
