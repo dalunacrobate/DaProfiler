@@ -39,7 +39,7 @@ optional arguments:
 ```
 
 ## 📷 Demo
-![Alt Text](https://i.ibb.co/TgDnhm8/gif.gif)<br>
+![Alt Text](https://github.com/dalunacrobate/Gifs/blob/main/gif.gif)<br>
 ![](https://i.ibb.co/YPHwv39/hh.png)
 
 ## 🛠 Api
