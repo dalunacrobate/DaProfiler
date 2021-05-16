@@ -39,7 +39,9 @@ optional arguments:
 ```
 
 ## 📷 Demo
-![Alt Text](https://github.com/dalunacrobate/Gifs/blob/main/gif.gif)<br>
+### WEB UI
+![Alt Text](https://github.com/dalunacrobate/Gifs/blob/main/gif.gif)
+### CONSOLE
 ![](https://i.ibb.co/YPHwv39/hh.png)
 
 ## 🛠 Api
