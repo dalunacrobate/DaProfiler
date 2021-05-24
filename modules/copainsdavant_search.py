@@ -1,6 +1,14 @@
-import requests, bs4, colorama, json
+import requests, bs4, json
 from bs4 import BeautifulSoup
 
+def check_response(url):
+    r = requests.get(url,allow_redirects=False)
+    status = r.status_code
+    if status == 200:
+        return True
+    else:
+        return None
+        
 def copains_davant(name,pren):
     headers = {
         'Accept':'application/json, text/javascript, */*; q=0.01',
@@ -19,14 +27,13 @@ def copains_davant(name,pren):
                 user_list.append(i)
         new_verified = []
         for i in user_list:
-            if len(new_verified) == 0:
-                profile = data['users'][i]
-                full_name = (profile['lib'])
-                if name.lower() and pren.lower() in full_name.lower():
-                    url =       (profile['url'])
-                    new_verified.append(url)
+            url = "https://copainsdavant.linternaute.com/p/{}-{}-{}".format(pren,name,i)
+            response_code = check_response(url)
+            if response_code is not None:
+                new_verified.append(url)
+
         profil_url = new_verified[0]
-        r = requests.get('http://copainsdavant.linternaute.com{}'.format(profil_url))
+        r = requests.get(allow_redirects=False,url='{}'.format(profil_url))
         pagephone = r.content
         featuresphone = "html.parser"
         soup = BeautifulSoup(pagephone,featuresphone)
