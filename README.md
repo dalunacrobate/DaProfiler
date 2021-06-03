@@ -3,12 +3,12 @@
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html) [![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/dalunacrobate/daprofiler)
 ![](https://visitor-badge.laobi.icu/badge?page_id=dalunacrobate.daprofiler)
 
-**EN** : For educational purposes only.
+For educational purposes only.
 
 ![alt text](https://i.ibb.co/mTRkq4m/test.png)
 # DaProfiler
 
-**EN** DaProfiler allows you to create a profile on your **target** based in France only.
+DaProfiler allows you to create a profile on your **target** based in France only.
 The particularity of this program is its ability to find the e-mail addresses of a target via searches on [Skype](https://www.skype.com/) and tests of combining e-mail addresses followed by a check to know if the email address exists or not (Beware of false negatives, the results displayed do not necessarily relate to the target you are looking for if another person has the same name - first name). DaProfiler is also able to check the words of a an instagram bio to find interesting information such as : **Email addresses**, **Paypal.me profiles**,**Sexual Orientation**,**City**,**School**,**Age**,**Ethnicity**,**Religions**,**Hobbies** and more ...
 
 ## 🛠 Installation - Linux
@@ -47,10 +47,8 @@ optional arguments:
 ## 🛠 Api
 | Source | Service type | Subscription | Key in code |
 | :---: | :---: | :---: | :---: |
-| emailrep.io | Email Reputation | Free ✅ | No Key |
 | Leakcheck.net | Breach Search | Premium 🔑 | ❌ | 
 | apilayer.net | Phone infos | Free ✅ | ✅ |
-| Scylla | Breach Search | Free ✅ | No Key |
 
 Add your premium api keys :
 + Go to [modules\api_modules](https://github.com/dalunacrobate/DaProfiler/tree/main/modules/api_modules) then open your API module (ex Leakcheck), replace "YOUR_KEY" to your key, save and quit your text editor.
