@@ -50,6 +50,7 @@ else:
 
 print("DaProfiler - Inspired from Profiler CToS")
 print("Github : "+Fore.YELLOW+"https://github.com/dalunacrobate\n"+Fore.RESET)
+print("Search in progress, please wait...")
 print("\r")
 
 possible_usernames = []
